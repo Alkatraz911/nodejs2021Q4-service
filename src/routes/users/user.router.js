@@ -1,6 +1,7 @@
+/* eslint-disable */
 const router = require('express').Router();
 const User = require('./user.model');
-const usersService = require('./user.service');
+// const usersService = require('./user.service');
 
 router.route('/').get(async (req, res) => {
   const users = await usersService.getAll();
@@ -9,3 +10,4 @@ router.route('/').get(async (req, res) => {
 });
 
 module.exports = router;
+/* eslint-disable */

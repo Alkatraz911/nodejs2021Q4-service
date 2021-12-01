@@ -1,6 +1,10 @@
+/* eslint-disable */
 const { PORT } = require('./common/config');
-const app = require('./app');
+const fastify = require('fastify');
+const server = fastify({ logger: true });
 
-app.listen(PORT, () =>
-  console.log(`App is running on http://localhost:${PORT}`)
-);
+server
+.listen(PORT)
+.catch(console.error);
+
+module.exports = { server };

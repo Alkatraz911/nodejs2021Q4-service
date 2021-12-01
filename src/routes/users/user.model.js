@@ -1,3 +1,4 @@
+/* eslint-disable */
 const uuid = require('uuid');
 
 class User {
@@ -20,3 +21,4 @@ class User {
 }
 
 module.exports = User;
+

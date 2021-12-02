@@ -4,8 +4,7 @@ const getAll = async () => {
   return [];
 };
 
-module.exports = { 
-  get: getAll,
-};
+// module.exports = { 
+//   get: getAll,
+// };
 
-/* eslint-disable */

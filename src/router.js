@@ -6,9 +6,10 @@ const isArray = require('lodash/isArray')
 const importDir = require('directory-import');
 const { forEach } = require('lodash');
 const  has  = require('lodash/has');
-const schemas = importDir({directoryPath:'./schemas', importMethod:'sync'})
 const routesDir = './routes';
 const { server } = require('./server');
+
+const schemas = importDir({directoryPath:'./schemas', importMethod:'sync'})
 
 importDir({directoryPath: routesDir, importMethod: 'sync'}, (routeName, routePath, routeMethods ) => {
     
@@ -25,14 +26,17 @@ importDir({directoryPath: routesDir, importMethod: 'sync'}, (routeName, routePat
     const cleanedPath = routeName === 'index'
     ? routePath.slice(0, routePath.length - 'index.js'.length)
     : routePath.slice(0, routePath.length - '.js'.length);
+
     forEach(routeMethods, (handler, methodName) => {
         
-        const schema = has(schemas, `${routeName}.${methodName}`)
-        ? schemas[routeName][methodName]
-        :{};
-        
-        if(isFunction(handler)) {
-            server[methodName](cleanedPath, { schema }, handler);
+        let schema = schemas[`/${routeName}.json`][methodName];
+
+        if (!schema) {
+            schema = {};
+        }
+
+        if (isFunction(handler)) {
+            server[methodName](cleanedPath,  {schema} , handler);
         } else if (isArray) {
             const [settings] = methodName;
             
@@ -47,4 +51,3 @@ importDir({directoryPath: routesDir, importMethod: 'sync'}, (routeName, routePat
     });
 
 });
-/* eslint-disable */

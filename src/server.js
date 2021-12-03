@@ -2,9 +2,11 @@
 const { PORT } = require('./common/config');
 const fastify = require('fastify');
 const server = fastify({ logger: true });
-const router = require('./router');
+const {users, boards} = require('./router');
 
-server.register(router);
+server.register(users);
+server.register(boards);
+
 
 
 try {

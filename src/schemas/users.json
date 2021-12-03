@@ -1,4 +1,11 @@
 {
+    "get": {
+        "params": {
+            "id": { 
+                "type": "string"
+            }
+        }
+    },
     "post": {
         "body": {
             "type": "object",

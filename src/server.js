@@ -2,9 +2,16 @@
 const { PORT } = require('./common/config');
 const fastify = require('fastify');
 const server = fastify({ logger: true });
+const router = require('./router');
 
-server
-.listen(PORT)
-.catch(console.error);
+server.register(router);
+
+
+try {
+    server.listen(PORT);
+
+} catch (err) {
+    server.log.error(err)
+}
 
 module.exports = { server };

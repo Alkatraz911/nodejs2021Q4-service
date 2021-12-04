@@ -1,26 +1,37 @@
 const typeString = { type: 'string' };
 
-const user = {
+const task = {
     type: 'object',
     properties: {
         id: typeString,
-        name: typeString,
-        login: typeString,
+        title: typeString,
+        order: { type: "number"},
+        description: typeString,
+        userId: { typeString, type: "null"}, 
+        boardId: typeString,
+        columnId: typeString
     },
 };
 
 const body = {
     type: "object",
-    required: ["name","login", "password"],
+    required: ["title","order"],
     properties: {
-        name: typeString,
-        login: typeString,
-        password: typeString
+        title: typeString,
+        order: { type: "number"},
+        description: typeString,
+        userId: { typeString, type: "null"}, 
+        boardId: typeString,
+        columnId: typeString
     }
 }
 
 const id = {
-    UserId: {
+    boardId: {
+        type: "string"
+    },
+
+    taskId: {
         type: "string"
     }
 }
@@ -29,7 +40,7 @@ const getUsersSchema = {
     response: {
         200: {
             type: 'array',
-            items: user
+            items: task
         },
     },
 }
@@ -43,6 +54,7 @@ const postUserSchema = {
 }
 
 const editUserSchema = {
+    params: id,
     body
 }
 

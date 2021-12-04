@@ -40,7 +40,7 @@ const BoardsRoutes = (server, options, done) => {
     server.get('/boards/:id', getBoardOpts);
     server.post('/boards', postBoardOpts);
     server.put('/boards/:id', editBoardOpts);
-    server.delete('/boards/:id', deleteBoardOpts)
+    server.delete('/boards/:id', deleteBoardOpts);
     done();
 };
 

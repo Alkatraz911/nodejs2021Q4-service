@@ -1,10 +1,10 @@
-/* eslint-disable */
+
 const { boards } = require('../../db/data');
 const Board = require('../../resources/boards/board.model');
 
 const getBoards = async (req, reply) => {
     reply.header('Content-Type', 'application/json');
-    let result = boards.map(el => Board.toResponse(el));
+    const result = boards.map(el => Board.toResponse(el));
     return reply
     .status(200)
     .send(result);
@@ -12,7 +12,7 @@ const getBoards = async (req, reply) => {
 
 const getBoard = (req, reply) => {
     const { id } = req.params;
-    let board = boards.find((el) => el.id === id);
+    const board = boards.find((el) => el.id === id);
     if (!board) {
         return reply.status(404).send({
             errorMsg: `board with id ${id} not found`,
@@ -24,7 +24,7 @@ const getBoard = (req, reply) => {
 };
 
 const addBoard = (req, reply) => {
-    let board = new Board(req.body);
+    const board = new Board(req.body);
     boards.push(board);
     return reply
     .status(201)
@@ -33,8 +33,9 @@ const addBoard = (req, reply) => {
 
 const editBoard = (req, reply) => {
     const { id } = req.params;
-    let board = boards.find((el) => el.id === id);
+    const board = boards.find((el) => el.id === id);
     const keys = Object.keys(req.body);
+    /* eslint-disable-next-line */
     for (const el of keys){
         board[el] = req.body[el]
     }

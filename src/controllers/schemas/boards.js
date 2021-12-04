@@ -30,17 +30,26 @@ const Board = {
 
 const body = {
     type: "object",
-    required: ["title"],
+    required: ["title","columns"],
     properties: {
         title: typeString,
         columns: {
-            type: 'array'
+            type: 'array',
+            items: {
+                type: 'object',
+                required: ['title', 'order'],
+                properties: {
+                    id: typeString,
+                    title: typeString,
+                    order: { type: 'number'}
+                }
+            }
         }
     }
 }
 
 const id = {
-    id: {
+    boardId: {
         type: "string"
     }
 }

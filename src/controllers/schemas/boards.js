@@ -30,11 +30,12 @@ const Board = {
 
 const body = {
     type: "object",
-    required: ["name","login", "password"],
+    required: ["title"],
     properties: {
-        name: typeString,
-        login: typeString,
-        password: typeString
+        title: typeString,
+        columns: {
+            type: 'array'
+        }
     }
 }
 

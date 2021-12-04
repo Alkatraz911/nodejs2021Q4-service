@@ -1,10 +1,10 @@
-/* eslint-disable */
-const { users } = require('../../resources/data');
+
+const { users } = require('../../db/data');
 const User = require('../../resources/users/user.model');
 
 const getUsers = async (req, reply) => {
     reply.header('Content-Type', 'application/json');
-    let result = users.map(el => User.toResponse(el));
+    const result = users.map(el => User.toResponse(el));
     return reply
     .status(200)
     .send(result);
@@ -12,7 +12,7 @@ const getUsers = async (req, reply) => {
 
 const getUser = (req, reply) => {
     const { id } = req.params;
-    let user = users.find((el) => el.id === id);
+    const user = users.find((el) => el.id === id);
     if (!user) {
         return reply.status(404).send({
             errorMsg: `User with id ${id} not found`,
@@ -24,7 +24,7 @@ const getUser = (req, reply) => {
 };
 
 const addUser = (req, reply) => {
-    let user = new User(req.body);
+    const user = new User(req.body);
     users.push(user);
     return reply
     .status(201)
@@ -33,9 +33,10 @@ const addUser = (req, reply) => {
 
 const editUser = (req, reply) => {
     const { id } = req.params;
-    let user = users.find((el) => el.id === id);
+    const user = users.find((el) => el.id === id);
     const keys = Object.keys(req.body);
-    for (const el of keys) {
+    /* eslint-disable-next-line */
+    for (const el of keys){
         user[el] = req.body[el]
     }
     return reply

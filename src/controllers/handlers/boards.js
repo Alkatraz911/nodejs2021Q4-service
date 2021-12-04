@@ -1,56 +1,56 @@
 /* eslint-disable */
-const { users } = require('../../resources/data');
-const User = require('../../resources/users/user.model');
+const { boards } = require('../../db/data');
+const Board = require('../../resources/boards/board.model');
 
-const getUsers = async (req, reply) => {
+const getBoards = async (req, reply) => {
     reply.header('Content-Type', 'application/json');
-    let result = users.map(el => User.toResponse(el));
+    let result = boards.map(el => Board.toResponse(el));
     return reply
     .status(200)
     .send(result);
 }
 
-const getUser = (req, reply) => {
+const getBoard = (req, reply) => {
     const { id } = req.params;
-    let user = users.find((el) => el.id === id);
-    if (!user) {
+    let board = boards.find((el) => el.id === id);
+    if (!board) {
         return reply.status(404).send({
-            errorMsg: `User with id ${id} not found`,
+            errorMsg: `board with id ${id} not found`,
         });
     }
     return reply
     .status(200)
-    .send(User.toResponse(user));
+    .send(Board.toResponse(board));
 };
 
-const addUser = (req, reply) => {
-    let user = new User(req.body);
-    users.push(user);
+const addBoard = (req, reply) => {
+    let board = new Board(req.body);
+    boards.push(board);
     return reply
     .status(201)
-    .send(User.toResponse(user));
+    .send(Board.toResponse(board));
 }
 
-const editUser = (req, reply) => {
+const editBoard = (req, reply) => {
     const { id } = req.params;
-    let user = users.find((el) => el.id === id);
+    let board = boards.find((el) => el.id === id);
     const keys = Object.keys(req.body);
-    for (const el of keys) {
-        user[el] = req.body[el]
+    for (const el of keys){
+        board[el] = req.body[el]
     }
     return reply
     .status(200)
-    .send(User.toResponse(user));
+    .send(Board.toResponse(board));
 }
 
-const deleteUser = (req, reply) => {
+const deleteBoard = (req, reply) => {
     const { id } = req.params;
-    const index = users.findIndex(el => el.id === id);
-    const result = users.splice(index, index + 1);
+    const index = boards.findIndex(el => el.id === id);
+    const result = boards.splice(index, index + 1);
     return reply
     .status(200)
-    .send(User.toResponse(result));
+    .send(Board.toResponse(result));
 }
 
 
-module.exports =  { getUsers, getUser, addUser, editUser, deleteUser }
+module.exports =  { getBoards, getBoard, addBoard, editBoard, deleteBoard }

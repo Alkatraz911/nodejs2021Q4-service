@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 const { getBoardsSchema } = require('../controllers/schemas/boards');
 const { getBoards } = require('../controllers/handlers/boards');
 const { getBoardSchema } = require('../controllers/schemas/boards');

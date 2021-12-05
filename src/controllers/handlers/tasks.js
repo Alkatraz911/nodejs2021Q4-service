@@ -34,9 +34,8 @@ const editTask = (req, reply) => {
     const { id } = req.params;
     const task = tasks.find((el) => el.id === id);
     const keys = Object.keys(req.body);
-    /* eslint-disable-next-line */
-    for (const el of keys){
-        task[el] = req.body[el]
+    for (let i = 0; i < keys.length; i += 1) {
+        task[keys[i]] = req.body[keys[i]]
     }
     return reply
     .status(200)

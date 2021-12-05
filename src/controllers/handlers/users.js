@@ -49,9 +49,9 @@ const deleteUser = (req, reply) => {
     const result = users.splice(index, index + 1);
     
     tasks.forEach(el => {
-        if (el.userId === id) {
-            /* eslint-disable-next-line */
-            el.userId = null;
+        const element = el
+        if (element.userId === id) {
+            element.userId = null;
         } 
     });
     return reply

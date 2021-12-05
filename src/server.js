@@ -1,6 +1,8 @@
-/* eslint-disable */
-const { PORT } = require('./common/config');
+
 const fastify = require('fastify');
+
+const { PORT } = require('./common/config');
+
 const server = fastify({ logger: true });
 const {users, boards, tasks} = require('./router');
 

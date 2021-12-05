@@ -47,7 +47,8 @@ const editUserSchema = {
 }
 
 const deleteUserSchema = {
-    params: id
+    params: id,
+    
 }
 
 module.exports = { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }

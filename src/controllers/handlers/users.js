@@ -1,5 +1,5 @@
 
-const { users } = require('../../db/data');
+const { users, tasks } = require('../../db/data');
 const User = require('../../resources/users/user.model');
 
 const getUsers = async (req, reply) => {
@@ -48,6 +48,13 @@ const deleteUser = (req, reply) => {
     const { id } = req.params;
     const index = users.findIndex(el => el.id === id);
     const result = users.splice(index, index + 1);
+    
+    tasks.forEach(el => {
+        if (el.userId === id) {
+            /* eslint-disable-next-line */
+            el.userId = null;
+        } 
+    });
     return reply
     .status(200)
     .send(User.toResponse(result));

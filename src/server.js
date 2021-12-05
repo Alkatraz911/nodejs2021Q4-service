@@ -1,6 +1,22 @@
-const { PORT } = require('./common/config');
-const app = require('./app');
 
-app.listen(PORT, () =>
-  console.log(`App is running on http://localhost:${PORT}`)
-);
+const fastify = require('fastify');
+
+const { PORT } = require('./common/config');
+
+const server = fastify({ logger: true });
+const {users, boards, tasks} = require('./router');
+
+server.register(users);
+server.register(boards);
+server.register(tasks);
+
+
+
+try {
+    server.listen(PORT);
+
+} catch (err) {
+    server.log.error(err)
+}
+
+module.exports = { server };

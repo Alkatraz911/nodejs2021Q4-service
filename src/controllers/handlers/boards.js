@@ -1,0 +1,56 @@
+
+const { boards } = require('../../db/data');
+const Board = require('../../resources/boards/board.model');
+
+const getBoards = async (req, reply) => {
+    reply.header('Content-Type', 'application/json');
+    const result = boards.map(el => Board.toResponse(el));
+    return reply
+    .status(200)
+    .send(result);
+}
+
+const getBoard = (req, reply) => {
+    const { id } = req.params;
+    const board = boards.find((el) => el.id === id);
+    if (!board) {
+        return reply.status(404).send({
+            errorMsg: `board with id ${id} not found`,
+        });
+    }
+    return reply
+    .status(200)
+    .send(Board.toResponse(board));
+};
+
+const addBoard = (req, reply) => {
+    const board = new Board(req.body);
+    boards.push(board);
+    return reply
+    .status(201)
+    .send(Board.toResponse(board));
+}
+
+const editBoard = (req, reply) => {
+    const { id } = req.params;
+    const board = boards.find((el) => el.id === id);
+    const keys = Object.keys(req.body);
+    for (let i = 0; i < keys.length; i += 1) {
+        board[keys[i]] = req.body[keys[i]]
+    }
+    return reply
+    .status(200)
+    .send(Board.toResponse(board));
+}
+
+const deleteBoard = (req, reply) => {
+    const { id } = req.params;
+    const index = boards.findIndex(el => el.id === id);
+    const result = boards.splice(index, index + 1);
+    return reply
+    .status(200)
+    .send(Board.toResponse(result));
+}
+
+
+module.exports =  { getBoards, getBoard, addBoard, editBoard, deleteBoard }

@@ -1,6 +1,27 @@
-const typeString = { type: 'string' };
 
-const user = {
+interface ItypeString {
+    type: string;
+}
+const typeString :ItypeString = { type: 'string' };
+
+interface Iusercreds {
+    id?: object;
+    name: object;
+    login: object;
+    password?: object;
+}
+
+interface Iuser {
+    type: string;
+    required?: string[];
+    properties: Iusercreds;
+}
+
+interface Iid {
+    UserId: ItypeString; 
+}
+
+const user :Iuser = {
     type: 'object',
     properties: {
         id: typeString,
@@ -9,7 +30,7 @@ const user = {
     },
 };
 
-const body = {
+const body :Iuser = {
     type: "object",
     required: ["name","login", "password"],
     properties: {
@@ -19,10 +40,8 @@ const body = {
     }
 }
 
-const id = {
-    UserId: {
-        type: "string"
-    }
+const id :Iid = {
+    UserId: typeString
 }
 
 const getUsersSchema = {
@@ -51,4 +70,4 @@ const deleteUserSchema = {
     
 }
 
-module.exports = { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }
+export { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }

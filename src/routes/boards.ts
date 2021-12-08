@@ -35,7 +35,7 @@ const deleteBoardOpts = {
     handler: deleteBoard
 }
 
-const BoardsRoutes = (server, options, done) => {
+const boardsRoutes = (server, options, done) => {
     server.get('/boards', getBoardsOpts);
     server.get('/boards/:id', getBoardOpts);
     server.post('/boards', postBoardOpts);
@@ -45,4 +45,4 @@ const BoardsRoutes = (server, options, done) => {
 };
 
 
-module.exports = BoardsRoutes
+export { boardsRoutes }

@@ -60,4 +60,4 @@ const deleteUser = (req, reply) => {
 }
 
 
-module.exports =  { getUsers, getUser, addUser, editUser, deleteUser }
+export  { getUsers, getUser, addUser, editUser, deleteUser }

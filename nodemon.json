@@ -1,0 +1,6 @@
+{
+    "ignore": ["nide_modiles"],
+    "watch": ["./src/app.js"],
+    "exec": "npm start",
+    "ext": "ts"
+}

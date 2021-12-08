@@ -44,4 +44,4 @@ const tasksRoutes = (server, options, done) => {
 };
 
 
-module.exports = tasksRoutes
+export { tasksRoutes }

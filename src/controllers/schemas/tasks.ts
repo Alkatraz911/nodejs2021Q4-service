@@ -1,6 +1,31 @@
-const typeString = { type: 'string' };
+interface ItypeString {
+    type: string;
+}
 
-const task = {
+const typeString:ItypeString = { type: 'string' };
+
+interface Itaskprops {
+    id?: object;
+    title: object;
+    order: object;
+    description: object;
+    userId: object; 
+    boardId: object;
+    columnId: object;
+}
+
+interface Itask {
+    type: string;
+    required?: string[];
+    properties: Itaskprops;
+}
+
+interface Iid {
+   boardId: ItypeString;
+   taskId: ItypeString; 
+}
+
+const task:Itask = {
     type: 'object',
     properties: {
         id: typeString,
@@ -13,7 +38,7 @@ const task = {
     },
 };
 
-const body = {
+const body: Itask = {
     type: "object",
     required: ["title","order"],
     properties: {
@@ -26,7 +51,7 @@ const body = {
     }
 }
 
-const id = {
+const id:Iid = {
     boardId: {
         type: "string"
     },
@@ -62,4 +87,4 @@ const deleteUserSchema = {
     params: id
 }
 
-module.exports = { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }
+export { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }

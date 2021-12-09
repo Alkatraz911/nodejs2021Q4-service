@@ -1,16 +1,28 @@
 
-const { users, tasks } = require('../../db/data');
-const User = require('../../resources/users/user.model');
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { data, Iuser } from '../../db/data';
+import { User } from '../../resources/users/user.model';
 
-const getUsers = async (req, reply) => {
-    reply.header('Content-Type', 'application/json');
+const { users, tasks} = data;
+
+function getUsers(req:FastifyRequest, reply:FastifyReply) {
     const result = users.map(el => User.toResponse(el));
     return reply
     .status(200)
     .send(result);
 }
 
-const getUser = (req, reply) => {
+type CustomRequest = FastifyRequest<{
+    Params?:{
+        id: string;
+    }
+
+    Body?: Iuser;
+}>
+
+
+
+function getUser (req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;
     const user = users.find((el) => el.id === id);
     if (!user) {
@@ -23,7 +35,9 @@ const getUser = (req, reply) => {
     .send(User.toResponse(user));
 };
 
-const addUser = (req, reply) => {
+
+
+function addUser (req:CustomRequest, reply:FastifyReply) {
     const user = new User(req.body);
     users.push(user);
     return reply
@@ -31,7 +45,7 @@ const addUser = (req, reply) => {
     .send(User.toResponse(user));
 }
 
-const editUser = (req, reply) => {
+function editUser (req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;
     const user = users.find((el) => el.id === id);
     const keys = Object.keys(req.body);
@@ -43,9 +57,9 @@ const editUser = (req, reply) => {
     .send(User.toResponse(user));
 }
 
-const deleteUser = (req, reply) => {
+function deleteUser(req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;
-    const index = users.findIndex(el => el.id === id);
+    const index:number = users.findIndex(el => el.id === id);
     const result = users.splice(index, index + 1);
     
     tasks.forEach(el => {
@@ -56,7 +70,7 @@ const deleteUser = (req, reply) => {
     });
     return reply
     .status(200)
-    .send(User.toResponse(result));
+    .send(result.forEach(el => User.toResponse(el)));
 }
 
 

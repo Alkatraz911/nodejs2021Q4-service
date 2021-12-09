@@ -2,7 +2,8 @@
 interface ItypeString {
     type: string;
 }
-const typeString :ItypeString = { type: 'string' };
+
+const typeString:ItypeString = { type: 'string' };
 
 interface Iusercreds {
     id?: object;
@@ -67,7 +68,6 @@ const editUserSchema = {
 
 const deleteUserSchema = {
     params: id,
-    
 }
 
 export { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }

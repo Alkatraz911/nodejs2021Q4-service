@@ -1,6 +1,40 @@
-const typeString = { type: 'string' };
+interface ItypeString {
+    type: string;
+}
+const typeString:ItypeString = { type: 'string' };
 
-const Board = {
+interface IcolumnsProps {
+    id: object;
+    title: object;
+    order: object;
+ }
+
+interface IcolumnsItems {
+    type: string;
+    required?:string[];
+    properties: IcolumnsProps;
+}
+
+
+interface Iid {
+    boardId: ItypeString; 
+}
+
+interface Icolumns {
+    type: string;
+    items: IcolumnsItems;
+}
+
+interface Iboard {
+    type?: string;
+    required?: string[];
+    properties: {
+       id?: object;
+       title: ItypeString;
+       columns: Icolumns;
+    }
+}
+const Board:Iboard = {
     properties: {
        id: {
           type: "string"
@@ -28,7 +62,7 @@ const Board = {
     }
 }
 
-const body = {
+const body:Iboard = {
     type: "object",
     required: ["title","columns"],
     properties: {
@@ -48,10 +82,8 @@ const body = {
     }
 }
 
-const id = {
-    boardId: {
-        type: "string"
-    }
+const id:Iid = {
+    boardId: typeString
 }
 
 const getBoardsSchema = {
@@ -79,4 +111,4 @@ const deleteBoardSchema = {
     params: id
 }
 
-module.exports = { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema }
+export { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema }

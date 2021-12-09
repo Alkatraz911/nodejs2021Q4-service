@@ -1,16 +1,27 @@
 
-const { boards } = require('../../db/data');
-const Board = require('../../resources/boards/board.model');
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { data, Iboard } from'../../db/data';
+import { Board } from '../../resources/boards/board.model';
 
-const getBoards = async (req, reply) => {
-    reply.header('Content-Type', 'application/json');
+const { boards } = data;
+
+
+const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
     const result = boards.map(el => Board.toResponse(el));
     return reply
     .status(200)
     .send(result);
 }
 
-const getBoard = (req, reply) => {
+type CustomRequest = FastifyRequest<{
+    Params?:{
+        id: string;
+    }
+
+    Body?: Iboard;
+}>
+
+const getBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const board = boards.find((el) => el.id === id);
     if (!board) {
@@ -23,7 +34,7 @@ const getBoard = (req, reply) => {
     .send(Board.toResponse(board));
 };
 
-const addBoard = (req, reply) => {
+const addBoard = (req:CustomRequest, reply:FastifyReply) => {
     const board = new Board(req.body);
     boards.push(board);
     return reply
@@ -31,7 +42,7 @@ const addBoard = (req, reply) => {
     .send(Board.toResponse(board));
 }
 
-const editBoard = (req, reply) => {
+const editBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const board = boards.find((el) => el.id === id);
     const keys = Object.keys(req.body);
@@ -49,8 +60,8 @@ const deleteBoard = (req, reply) => {
     const result = boards.splice(index, index + 1);
     return reply
     .status(200)
-    .send(Board.toResponse(result));
+    .send(result.forEach(el => Board.toResponse(el)));
 }
 
 
-module.exports =  { getBoards, getBoard, addBoard, editBoard, deleteBoard }
+export { getBoards, getBoard, addBoard, editBoard, deleteBoard }

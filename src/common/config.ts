@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 import path from 'path';
 
 dotenv.config({
@@ -6,10 +6,10 @@ dotenv.config({
 });
 
 interface Iconfig {
-  PORT: string;
-  NODE_ENV: string;
-  MONGO_CONNECTION_STRING: string;
-  JWT_SECRET_KEY: string;
+  PORT: string|number;
+  NODE_ENV: string|undefined;
+  MONGO_CONNECTION_STRING: string|undefined;
+  JWT_SECRET_KEY: string|undefined;
   AUTH_MODE: boolean
 }
 

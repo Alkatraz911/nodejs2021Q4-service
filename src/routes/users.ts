@@ -1,3 +1,4 @@
+import { FastifyContextConfig, FastifyInstance, FastifyPluginAsync, FastifyPluginCallback } from 'fastify';
 import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema } from '../controllers/schemas/users';
 import { getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
 
@@ -8,6 +9,7 @@ interface IrouteHandler {
     schema: object;
     handler: object;
 }
+
 
 const getUsersOpts: IrouteHandler = {
     schema: getUsersSchema,
@@ -34,12 +36,12 @@ const deleteUserOpts: IrouteHandler = {
     handler: deleteUser
 }
 
-const usersRoutes = (server, options, done) => {
+function usersRoutes (server, option, done) {
     server.get('/users', getUsersOpts);
     server.get('/users/:id', getUserOpts);
     server.post('/users', postUserOpts);
     server.put('/users/:id', editUserOpts);
-    server.delete('/users/:id', deleteUserOpts)
+    server.delete('/users/:id', deleteUserOpts);
     done();
 };
 

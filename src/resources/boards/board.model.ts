@@ -6,11 +6,12 @@ import { Iboard } from '../../db/data';
 class Board {
     id: string;
     title: string;
-    columns: object[];
+    columns: object[]|undefined;
+
   constructor({
     id = uuidv4(),
     title = '',
-    columns = []
+    columns = [{}]
   } = {}) {
     this.id = id;
     this.title = title;

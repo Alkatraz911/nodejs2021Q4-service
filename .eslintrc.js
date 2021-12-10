@@ -22,7 +22,7 @@ module.exports = {
     noInlineConfig: true,
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts'],
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
       },
     },
     node: {

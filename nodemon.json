@@ -1,6 +1,6 @@
 {
-    "ignore": ["nide_modiles"],
-    "watch": ["./src/app.js"],
+    "ignore": ["node_modules"],
+    "watch": ["./src/server.js"],
     "exec": "npm start",
     "ext": "ts"
 }

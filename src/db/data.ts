@@ -1,3 +1,5 @@
+
+
 interface Iuser {
     id?: string;
     name: string;
@@ -5,14 +7,20 @@ interface Iuser {
     password: string;
 }
 
-interface Itask {
-    userId: string | null;
+interface Itask  {
+    id: string;
+    title: string;
+    order: number;
+    description: string;
+    userId: string|null;
+    boardId: string;
+    columnId: string|null;
 }
 
 interface Iboard {
-    id?: string;
+    id: string;
     title: string;
-    columns: object[]
+    columns: object[]|undefined
 }
 
 
@@ -29,4 +37,4 @@ const data :Idata = {
     tasks: []
 }
 
-export { data, Iboard,Iuser }
+export { data, Iboard, Iuser, Itask }

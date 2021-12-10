@@ -1,41 +1,42 @@
 
-const { getBoardsSchema } = require('../controllers/schemas/boards');
-const { getBoards } = require('../controllers/handlers/boards');
-const { getBoardSchema } = require('../controllers/schemas/boards');
-const { getBoard } = require('../controllers/handlers/boards');
-const { postBoardSchema } = require('../controllers/schemas/boards');
-const { addBoard } = require('../controllers/handlers/boards');
-const { editBoardSchema } = require('../controllers/schemas/boards');
-const { editBoard } = require('../controllers/handlers/boards');
-const { deleteBoardSchema } = require('../controllers/schemas/boards');
-const { deleteBoard } = require('../controllers/handlers/boards');
+import { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema } from '../controllers/schemas/boards';
+import{ getBoards, getBoard, addBoard, editBoard, deleteBoard } from '../controllers/handlers/boards';
+import { DefaultRoute } from 'fastify/types/route';
+import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
+import { CustomRequest} from '../controllers/handlers/boards'
 
-const getBoardsOpts = {
+
+interface CustomRoute {
+    schema: FastifySchema;
+    handler: DefaultRoute<CustomRequest, FastifyReply>;
+}
+
+const getBoardsOpts:CustomRoute = {
     schema: getBoardsSchema,
     handler: getBoards
 }
 
-const getBoardOpts = {
+const getBoardOpts:CustomRoute = {
     schema: getBoardSchema,
     handler: getBoard
 }
 
-const postBoardOpts = {
+const postBoardOpts:CustomRoute = {
     schema: postBoardSchema,
     handler: addBoard
 }
 
-const editBoardOpts = {
+const editBoardOpts:CustomRoute = {
     schema: editBoardSchema,
     handler: editBoard
 }
 
-const deleteBoardOpts = {
+const deleteBoardOpts:CustomRoute = {
     schema: deleteBoardSchema,
     handler: deleteBoard
 }
 
-const boardsRoutes = (server, options, done) => {
+const boardsRoutes:FastifyPluginCallback = (server, _option, done) => {
     server.get('/boards', getBoardsOpts);
     server.get('/boards/:id', getBoardOpts);
     server.post('/boards', postBoardOpts);

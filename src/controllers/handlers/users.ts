@@ -12,18 +12,20 @@ function getUsers(req:FastifyRequest, reply:FastifyReply) {
     .send(result);
 }
 
-type CustomRequest = FastifyRequest<{
-    Params?:{
-        id: string;
+
+
+export type CustomRequest = FastifyRequest<{
+    Params:{
+        id: string|undefined;
     }
 
-    Body?: Iuser;
+    Body: Iuser;
 }>
 
 
 
 function getUser (req:CustomRequest, reply:FastifyReply) {
-    const { id } = req.params;
+    const  { id }  = req.params;
     const user = users.find((el) => el.id === id);
     if (!user) {
         return reply.status(404).send({
@@ -48,13 +50,14 @@ function addUser (req:CustomRequest, reply:FastifyReply) {
 function editUser (req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;
     const user = users.find((el) => el.id === id);
-    const keys = Object.keys(req.body);
-    for (let i = 0; i < keys.length; i += 1) {
-        user[keys[i]] = req.body[keys[i]]
+    if(user) {
+        user.login = req.body.login;
+        user.password = req.body.password;
+        user.name = req.body.name;
+        return reply
+        .status(200)
+        .send(User.toResponse(user));
     }
-    return reply
-    .status(200)
-    .send(User.toResponse(user));
 }
 
 function deleteUser(req:CustomRequest, reply:FastifyReply) {

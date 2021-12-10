@@ -1,7 +1,10 @@
-const { tasks } = require('../../db/data');
-const Task = require('../../resources/tasks/task.model');
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { data, Itask } from '../../db/data';
+import { Task }  from '../../resources/tasks/task.model';
 
-const getTasks =  (req, reply) => {
+const tasks = data.tasks;
+
+const getTasks =  (req:FastifyRequest, reply:FastifyReply) => {
     reply.header('Content-Type', 'application/json');
     const result = tasks.map(el => Task.toResponse(el));
     return reply
@@ -9,7 +12,17 @@ const getTasks =  (req, reply) => {
     .send(result);
 }
 
-const getTask = (req, reply) => {
+export type CustomRequest = FastifyRequest<{
+    Params:{
+        id: string|undefined;
+        boardId: string|undefined;
+    }
+
+    Body: Itask;
+}>
+
+
+const getTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const task = tasks.find((el) => el.id === id);
     if (!task) {
@@ -22,7 +35,8 @@ const getTask = (req, reply) => {
     .send(Task.toResponse(task));
 };
 
-const addTask = (req, reply) => {
+
+const addTask = (req:CustomRequest, reply:FastifyReply) => {
     const task = new Task(req.body,req.params);
     tasks.push(task);
     return reply
@@ -30,26 +44,28 @@ const addTask = (req, reply) => {
     .send(Task.toResponse(task));
 }
 
-const editTask = (req, reply) => {
+const editTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const task = tasks.find((el) => el.id === id);
-    const keys = Object.keys(req.body);
-    for (let i = 0; i < keys.length; i += 1) {
-        task[keys[i]] = req.body[keys[i]]
+    if(task) {
+        task.title = req.body.title;
+        task.order = req.body.order;
+        task.description = req.body.description;
+        return reply
+        .status(200)
+        .send(Task.toResponse(task));
     }
-    return reply
-    .status(200)
-    .send(Task.toResponse(task));
+
 }
 
-const deleteTask = (req, reply) => {
+const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const index = tasks.findIndex(el => el.id === id);
     const result = tasks.splice(index, index + 1);
     return reply
     .status(200)
-    .send(Task.toResponse(result));
+    .send(result.forEach((el)=>Task.toResponse(el)));
 }
 
 
-module.exports =  { getTasks, getTask, addTask, editTask, deleteTask }
+export  { getTasks, getTask, addTask, editTask, deleteTask }

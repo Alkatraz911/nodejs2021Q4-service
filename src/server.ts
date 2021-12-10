@@ -1,4 +1,5 @@
 import fastify, { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 import { config } from './common/config';
 import { usersRoutes } from './routes/users';
 import { boardsRoutes } from './routes/boards';
@@ -14,7 +15,7 @@ server.register(tasksRoutes);
 const {PORT} = config;
 
 try {
-    server.listen(PORT);
+    server.listen(PORT||4000);
 
 } catch (err) {
     server.log.error(err)

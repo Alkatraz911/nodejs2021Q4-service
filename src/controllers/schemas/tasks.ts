@@ -61,7 +61,7 @@ const id:Iid = {
     }
 }
 
-const getUsersSchema = {
+const getTasksSchema = {
     response: {
         200: {
             type: 'array',
@@ -70,21 +70,21 @@ const getUsersSchema = {
     },
 }
 
-const getUserSchema = {
+const getTaskSchema = {
     params: id
 }
 
-const postUserSchema = {
+const postTaskSchema = {
     body
 }
 
-const editUserSchema = {
+const editTaskSchema = {
     params: id,
     body
 }
 
-const deleteUserSchema = {
+const deleteTaskSchema = {
     params: id
 }
 
-export { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema }
+export { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema }

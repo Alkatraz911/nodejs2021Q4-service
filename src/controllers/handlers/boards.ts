@@ -13,12 +13,12 @@ const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
     .send(result);
 }
 
-type CustomRequest = FastifyRequest<{
-    Params?:{
-        id: string;
+export type CustomRequest = FastifyRequest<{
+    Params:{
+        id: string|undefined;
     }
 
-    Body?: Iboard;
+    Body: Iboard;
 }>
 
 const getBoard = (req:CustomRequest, reply:FastifyReply) => {
@@ -45,16 +45,17 @@ const addBoard = (req:CustomRequest, reply:FastifyReply) => {
 const editBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const board = boards.find((el) => el.id === id);
-    const keys = Object.keys(req.body);
-    for (let i = 0; i < keys.length; i += 1) {
-        board[keys[i]] = req.body[keys[i]]
+
+    if(board) {
+        board.title = req.body.title;
+        board.columns = req.body.columns;
+        return reply
+        .status(200)
+        .send(Board.toResponse(board));
     }
-    return reply
-    .status(200)
-    .send(Board.toResponse(board));
 }
 
-const deleteBoard = (req, reply) => {
+const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const index = boards.findIndex(el => el.id === id);
     const result = boards.splice(index, index + 1);

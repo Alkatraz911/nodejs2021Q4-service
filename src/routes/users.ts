@@ -1,42 +1,44 @@
-import { FastifyContextConfig, FastifyInstance, FastifyPluginAsync, FastifyPluginCallback } from 'fastify';
+import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
+import { CustomRequest } from '../controllers/handlers/users';
 import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema } from '../controllers/schemas/users';
 import { getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
+import { DefaultRoute } from 'fastify/types/route';
 
 
 
 
-interface IrouteHandler {
-    schema: object;
-    handler: object;
+interface CustomRoute {
+    schema: FastifySchema;
+    handler: DefaultRoute<CustomRequest, FastifyReply>;
 }
 
 
-const getUsersOpts: IrouteHandler = {
+const getUsersOpts: CustomRoute = {
     schema: getUsersSchema,
     handler: getUsers
 }
 
-const getUserOpts: IrouteHandler = {
+const getUserOpts: CustomRoute = {
     schema: getUserSchema,
     handler: getUser
 }
 
-const postUserOpts: IrouteHandler = {
+const postUserOpts: CustomRoute = {
     schema: postUserSchema,
     handler: addUser
 }
 
-const editUserOpts: IrouteHandler = {
+const editUserOpts: CustomRoute = {
     schema: editUserSchema,
     handler: editUser
 }
 
-const deleteUserOpts: IrouteHandler = {
+const deleteUserOpts: CustomRoute = {
     schema: deleteUserSchema,
     handler: deleteUser
 }
 
-function usersRoutes (server, option, done) {
+const usersRoutes:FastifyPluginCallback =  (server, _option, done) => {
     server.get('/users', getUsersOpts);
     server.get('/users/:id', getUserOpts);
     server.post('/users', postUserOpts);

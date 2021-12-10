@@ -1,40 +1,40 @@
-const { getTasksSchema } = require('../controllers/schemas/tasks');
-const { getTasks } = require('../controllers/handlers/tasks');
-const { getTaskSchema } = require('../controllers/schemas/tasks');
-const { getTask } = require('../controllers/handlers/tasks');
-const { postTaskSchema } = require('../controllers/schemas/tasks');
-const { addTask } = require('../controllers/handlers/tasks');
-const { editTaskSchema } = require('../controllers/schemas/tasks');
-const { editTask } = require('../controllers/handlers/tasks');
-const { deleteTaskSchema } = require('../controllers/schemas/tasks');
-const { deleteTask } = require('../controllers/handlers/tasks');
+import { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema } from '../controllers/schemas/tasks';
+import { getTasks, getTask, addTask, editTask, deleteTask } from '../controllers/handlers/tasks';
+import { DefaultRoute } from 'fastify/types/route';
+import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
+import { CustomRequest } from '../controllers/handlers/tasks';
 
-const getTasksOpts = {
+interface CustomRoute {
+    schema: FastifySchema;
+    handler: DefaultRoute<CustomRequest, FastifyReply>;
+}
+
+const getTasksOpts:CustomRoute = {
     schema: getTasksSchema,
     handler: getTasks
 }
 
-const getTaskOpts = {
+const getTaskOpts:CustomRoute = {
     schema: getTaskSchema,
     handler: getTask
 }
 
-const postTaskOpts = {
+const postTaskOpts:CustomRoute = {
     schema: postTaskSchema,
     handler: addTask
 }
 
-const editTaskOpts = {
+const editTaskOpts:CustomRoute = {
     schema: editTaskSchema,
     handler: editTask
 }
 
-const deleteTaskOpts = {
+const deleteTaskOpts:CustomRoute = {
     schema: deleteTaskSchema,
     handler: deleteTask
 }
 
-const tasksRoutes = (server, options, done) => {
+const tasksRoutes:FastifyPluginCallback = (server, _option, done) => {
     server.get('/boards/:boardId/tasks', getTasksOpts);
     server.get('/boards/:boardId/tasks/:id', getTaskOpts);
     server.post('/boards/:boardId/tasks', postTaskOpts);

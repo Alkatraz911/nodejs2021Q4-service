@@ -14,8 +14,8 @@ const getTasks =  (req:FastifyRequest, reply:FastifyReply) => {
 
 export type CustomRequest = FastifyRequest<{
     Params:{
-        id: string|undefined;
-        boardId: string|undefined;
+        id: string;
+        boardId: string;
     }
 
     Body: Itask;
@@ -37,7 +37,9 @@ const getTask = (req:CustomRequest, reply:FastifyReply) => {
 
 
 const addTask = (req:CustomRequest, reply:FastifyReply) => {
-    const task = new Task(req.body,req.params);
+    const task = new Task(req.body);
+    const {boardId}  = req.params;
+    task.boardId = boardId;
     tasks.push(task);
     return reply
     .status(201)
@@ -47,7 +49,7 @@ const addTask = (req:CustomRequest, reply:FastifyReply) => {
 const editTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const task = tasks.find((el) => el.id === id);
-    if(task) {
+    if (task) {
         task.title = req.body.title;
         task.order = req.body.order;
         task.description = req.body.description;
@@ -55,16 +57,15 @@ const editTask = (req:CustomRequest, reply:FastifyReply) => {
         .status(200)
         .send(Task.toResponse(task));
     }
-
 }
 
 const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const index = tasks.findIndex(el => el.id === id);
-    const result = tasks.splice(index, index + 1);
-    return reply
-    .status(200)
-    .send(result.forEach((el)=>Task.toResponse(el)));
+    tasks.splice(index, index + 1);
+    reply.status(204);
+    return reply.send()
+    
 }
 
 

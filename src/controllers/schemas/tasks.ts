@@ -32,9 +32,9 @@ const task:Itask = {
         title: typeString,
         order: { type: "number"},
         description: typeString,
-        userId: { typeString, type: "null"}, 
-        boardId: typeString,
-        columnId: typeString
+        userId: { type: ["string","null"]}, 
+        boardId: { type: ["string","null"]},
+        columnId: { type: ["string","null"]}
     },
 };
 
@@ -45,9 +45,9 @@ const body: Itask = {
         title: typeString,
         order: { type: "number"},
         description: typeString,
-        userId: { typeString, type: "null"}, 
-        boardId: typeString,
-        columnId: typeString
+        userId: { type: ["string","null"]}, 
+        boardId: { type: ["string","null"]},
+        columnId: { type: ["string","null"]},
     }
 }
 

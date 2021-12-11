@@ -58,6 +58,9 @@ function editUser (req:CustomRequest, reply:FastifyReply) {
         .status(200)
         .send(User.toResponse(user));
     }
+    return reply
+    .status(404)
+    .send('Not found');
 }
 
 function deleteUser(req:CustomRequest, reply:FastifyReply) {

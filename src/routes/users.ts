@@ -1,8 +1,8 @@
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
-import { CustomRequest } from '../controllers/handlers/users';
+import { DefaultRoute } from 'fastify/types/route.d';
+import { CustomRequest , getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
 import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema } from '../controllers/schemas/users';
-import { getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
-import { DefaultRoute } from 'fastify/types/route';
+
 
 
 

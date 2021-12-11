@@ -3,7 +3,9 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Iboard } from'../../db/data';
 import { Board } from '../../resources/boards/board.model';
 
+
 const { boards } = data;
+let { tasks } = data;
 
 
 const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
@@ -15,7 +17,7 @@ const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
 
 export type CustomRequest = FastifyRequest<{
     Params:{
-        id: string|undefined;
+        id: string;
     }
 
     Body: Iboard;
@@ -53,15 +55,18 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
         .status(200)
         .send(Board.toResponse(board));
     }
+    return reply
+    .status(404)
+    .send('Not found');
 }
 
 const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
+    tasks = tasks.filter((el) => el.boardId !== id);
     const index = boards.findIndex(el => el.id === id);
-    const result = boards.splice(index, index + 1);
-    return reply
-    .status(200)
-    .send(result.forEach(el => Board.toResponse(el)));
+    boards.splice(index, index + 1);
+    reply.status(204)
+    return reply.send()
 }
 
 

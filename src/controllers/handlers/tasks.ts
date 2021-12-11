@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Itask } from '../../db/data';
 import { Task }  from '../../resources/tasks/task.model';
 
-const tasks = data.tasks;
+const {tasks} = data;
 
 const getTasks =  (req:FastifyRequest, reply:FastifyReply) => {
     reply.header('Content-Type', 'application/json');
@@ -57,6 +57,9 @@ const editTask = (req:CustomRequest, reply:FastifyReply) => {
         .status(200)
         .send(Task.toResponse(task));
     }
+    return reply
+    .status(404)
+    .send('Not found');
 }
 
 const deleteTask = (req:CustomRequest, reply:FastifyReply) => {

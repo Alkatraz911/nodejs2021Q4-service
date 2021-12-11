@@ -1,9 +1,9 @@
 
-import { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema } from '../controllers/schemas/boards';
-import{ getBoards, getBoard, addBoard, editBoard, deleteBoard } from '../controllers/handlers/boards';
-import { DefaultRoute } from 'fastify/types/route';
+import { DefaultRoute } from 'fastify/types/route.d';
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
-import { CustomRequest} from '../controllers/handlers/boards'
+import { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema } from '../controllers/schemas/boards';
+import{ getBoards, getBoard, addBoard, editBoard, deleteBoard , CustomRequest} from '../controllers/handlers/boards';
+
 
 
 interface CustomRoute {

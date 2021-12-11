@@ -1,8 +1,8 @@
-import { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema } from '../controllers/schemas/tasks';
-import { getTasks, getTask, addTask, editTask, deleteTask } from '../controllers/handlers/tasks';
-import { DefaultRoute } from 'fastify/types/route';
+import { DefaultRoute } from 'fastify/types/route.d';
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
-import { CustomRequest } from '../controllers/handlers/tasks';
+import { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema } from '../controllers/schemas/tasks';
+import { getTasks, getTask, addTask, editTask, deleteTask , CustomRequest } from '../controllers/handlers/tasks';
+
 
 interface CustomRoute {
     schema: FastifySchema;

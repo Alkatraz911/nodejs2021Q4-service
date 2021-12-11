@@ -17,7 +17,7 @@ server.register(tasksRoutes);
 
 try {
     server.listen(PORT);
-    process.stdout.write(`server started at port ${PORT}`);
+    console.log(`Server started at port ${PORT}`);
 } catch (err) {
     server.log.error(err)
 }

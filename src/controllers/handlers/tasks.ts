@@ -4,6 +4,13 @@ import { Task }  from '../../resources/tasks/task.model';
 
 const {tasks} = data;
 
+/**
+ * Returns  array of created tasks or empty array if no tasks were created
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns array of created tasks or empty array if no tasks were created
+ */
+
 const getTasks =  (req:FastifyRequest, reply:FastifyReply) => {
     reply.header('Content-Type', 'application/json');
     const result = tasks.map(el => Task.toResponse(el));
@@ -21,6 +28,12 @@ export type CustomRequest = FastifyRequest<{
     Body: Itask;
 }>
 
+/**
+ * Returns task with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns task(object) with requested id or error 404 if task not found
+ */
 
 const getTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
@@ -35,6 +48,12 @@ const getTask = (req:CustomRequest, reply:FastifyReply) => {
     .send(Task.toResponse(task));
 };
 
+/**
+ * Add created task to the array of boards
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns added task(object)
+ */
 
 const addTask = (req:CustomRequest, reply:FastifyReply) => {
     const task = new Task(req.body);
@@ -45,6 +64,13 @@ const addTask = (req:CustomRequest, reply:FastifyReply) => {
     .status(201)
     .send(Task.toResponse(task));
 }
+
+/**
+ * Edit task with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns edited task(object) or error 404 if task not found
+ */
 
 const editTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
@@ -61,6 +87,13 @@ const editTask = (req:CustomRequest, reply:FastifyReply) => {
     .status(404)
     .send('Not found');
 }
+
+/**
+ * Delete task with requested id 
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns status code 204 or error 404 if task with requested id not found
+ */
 
 const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;

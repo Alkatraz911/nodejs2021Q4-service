@@ -5,6 +5,13 @@ import { User } from '../../resources/users/user.model';
 
 const { users, tasks} = data;
 
+/**
+ * Returns  array of created users or empty array if no users were created
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns array of created users or empty array if no users were created
+ */
+
 function getUsers(req:FastifyRequest, reply:FastifyReply) {
     const result = users.map(el => User.toResponse(el));
     return reply
@@ -22,7 +29,12 @@ export type CustomRequest = FastifyRequest<{
     Body: Iuser;
 }>
 
-
+/**
+ * Returns user with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns user(object) with requested id or error 404 if user not found
+ */
 
 function getUser (req:CustomRequest, reply:FastifyReply) {
     const  { id }  = req.params;
@@ -37,7 +49,12 @@ function getUser (req:CustomRequest, reply:FastifyReply) {
     .send(User.toResponse(user));
 };
 
-
+/**
+ * Add created user to the array of users
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns added user(object)
+ */
 
 function addUser (req:CustomRequest, reply:FastifyReply) {
     const user = new User(req.body);
@@ -46,6 +63,13 @@ function addUser (req:CustomRequest, reply:FastifyReply) {
     .status(201)
     .send(User.toResponse(user));
 }
+
+/**
+ * Edit user with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns edited user(object) or error 404 if board not found
+ */
 
 function editUser (req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;
@@ -62,6 +86,13 @@ function editUser (req:CustomRequest, reply:FastifyReply) {
     .status(404)
     .send('Not found');
 }
+
+/**
+ * Delete user with requested id and put null at userId field at tasks created by deleted user
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns status code 204 or error 404 if user with requested id not found
+ */
 
 function deleteUser(req:CustomRequest, reply:FastifyReply) {
     const { id } = req.params;

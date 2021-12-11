@@ -7,6 +7,12 @@ import { Board } from '../../resources/boards/board.model';
 const { boards } = data;
 let { tasks } = data;
 
+/**
+ * Returns  array of created boards or empty array if no boards were created
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns array of created boards or empty array if no boards were created
+ */
 
 const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
     const result = boards.map(el => Board.toResponse(el));
@@ -15,6 +21,8 @@ const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
     .send(result);
 }
 
+
+
 export type CustomRequest = FastifyRequest<{
     Params:{
         id: string;
@@ -22,6 +30,13 @@ export type CustomRequest = FastifyRequest<{
 
     Body: Iboard;
 }>
+
+/**
+ * Returns board with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns board(object) with requested id or error 404 if board not found
+ */
 
 const getBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
@@ -36,6 +51,13 @@ const getBoard = (req:CustomRequest, reply:FastifyReply) => {
     .send(Board.toResponse(board));
 };
 
+/**
+ * Add created board to the array of boards
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns added board(object)
+ */
+
 const addBoard = (req:CustomRequest, reply:FastifyReply) => {
     const board = new Board(req.body);
     boards.push(board);
@@ -43,6 +65,13 @@ const addBoard = (req:CustomRequest, reply:FastifyReply) => {
     .status(201)
     .send(Board.toResponse(board));
 }
+
+/**
+ * Edit board with requested id
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns edited board(object) or error 404 if board not found
+ */
 
 const editBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
@@ -60,13 +89,25 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
     .send('Not found');
 }
 
+/**
+ * Delete board with requested id and its tasks
+ * @param req - fastify request
+ * @param reply - fastify reply
+ * @returns status code 204 or error 404 if board with requested id not found
+ */
+
 const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     tasks = tasks.filter((el) => el.boardId !== id);
     const index = boards.findIndex(el => el.id === id);
-    boards.splice(index, index + 1);
-    reply.status(204)
-    return reply.send()
+    if(index) {
+        boards.splice(index, index + 1);
+        reply.status(204)
+        return reply.send()
+    }
+    return reply
+    .status(404)
+    .send('Not found');
 }
 
 

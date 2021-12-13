@@ -11,7 +11,7 @@ class Task {
   description: string;
   userId: string|null;
   boardId: string|null;
-  columnId: null;
+  columnId: string|null;
   constructor({
     id = uuidv4(),
     title = '',

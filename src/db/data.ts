@@ -14,7 +14,7 @@ interface Itask  {
     description: string;
     userId: string|null;
     boardId: string|null;
-    columnId: null;
+    columnId: string|null;
 }
 
 interface Iboard {

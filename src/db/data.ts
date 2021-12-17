@@ -20,7 +20,7 @@ interface Itask  {
 interface Iboard {
     id: string;
     title: string;
-    columns: object[]|undefined
+    columns: object[];
 }
 
 
@@ -34,7 +34,7 @@ interface Idata {
 const data :Idata = {
     users: [],
     boards: [],
-    tasks: []
+    tasks: [],
 }
 
 export { data, Iboard, Iuser, Itask }

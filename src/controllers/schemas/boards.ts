@@ -17,7 +17,7 @@ interface IcolumnsItems {
 
 
 interface Iid {
-    boardId: ItypeString; 
+    id: ItypeString; 
 }
 
 interface Icolumns {
@@ -83,7 +83,7 @@ const body:Iboard = {
 }
 
 const id:Iid = {
-    boardId: typeString
+    id: typeString
 }
 
 const getBoardsSchema = {

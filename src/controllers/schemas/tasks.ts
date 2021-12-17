@@ -21,8 +21,8 @@ interface Itask {
 }
 
 interface Iid {
-   boardId: ItypeString;
-   taskId: ItypeString; 
+   boardId: object;
+   id: object; 
 }
 
 const task:Itask = {
@@ -53,21 +53,16 @@ const body: Itask = {
 
 const id:Iid = {
     boardId: {
-        type: "string"
+        type: ["string","null"]
     },
 
-    taskId: {
-        type: "string"
+    id: {
+        type: ["string","null"]
     }
 }
 
 const getTasksSchema = {
-    response: {
-        200: {
-            type: 'array',
-            items: task
-        },
-    },
+    params: id
 }
 
 const getTaskSchema = {

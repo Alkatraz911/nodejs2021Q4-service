@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Itask } from '../../db/data';
 import { Task }  from '../../resources/tasks/task.model';
 
-const {tasks} = data;
+let  { tasks } = data;
 
 /**
  * Returns  array of created tasks or empty array if no tasks were created
@@ -11,9 +11,9 @@ const {tasks} = data;
  * @returns array of created tasks or empty array if no tasks were created
  */
 
-const getTasks =  (req:FastifyRequest, reply:FastifyReply) => {
-    reply.header('Content-Type', 'application/json');
-    const result = tasks.map(el => Task.toResponse(el));
+const getTasks =  (req:CustomRequest, reply:FastifyReply) => {
+    let { boardId } = req.params;
+    const result = tasks.filter(el => el.boardId === boardId);
     return reply
     .status(200)
     .send(result);
@@ -57,7 +57,7 @@ const getTask = (req:CustomRequest, reply:FastifyReply) => {
 
 const addTask = (req:CustomRequest, reply:FastifyReply) => {
     const task = new Task(req.body);
-    const {boardId}  = req.params;
+    const { boardId }  = req.params;
     task.boardId = boardId;
     tasks.push(task);
     return reply

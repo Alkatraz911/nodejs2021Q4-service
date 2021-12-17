@@ -4,7 +4,7 @@ import { data, Iboard } from'../../db/data';
 import { Board } from '../../resources/boards/board.model';
 
 
-const { boards } = data;
+let  { boards } = data;
 let { tasks } = data;
 
 /**
@@ -45,10 +45,12 @@ const getBoard = (req:CustomRequest, reply:FastifyReply) => {
         return reply.status(404).send({
             errorMsg: `board with id ${id} not found`,
         });
-    }
-    return reply
-    .status(200)
-    .send(Board.toResponse(board));
+    } 
+        return reply
+        .status(200)
+        .send(Board.toResponse(board));
+    
+
 };
 
 /**
@@ -83,10 +85,12 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
         return reply
         .status(200)
         .send(Board.toResponse(board));
-    }
-    return reply
-    .status(404)
-    .send('Not found');
+    } 
+        return reply
+        .status(404)
+        .send('Not found');
+    
+
 }
 
 /**
@@ -98,16 +102,19 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
 
 const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
-    tasks = tasks.filter((el) => el.boardId !== id);
-    const index = boards.findIndex(el => el.id === id);
-    if(index) {
-        boards.splice(index, index + 1);
-        reply.status(204)
-        return reply.send()
-    }
-    return reply
-    .status(404)
-    .send('Not found');
+    const board = boards.find((el) => el.id === id);
+    if (board) {
+        data.tasks = tasks.filter((el) => el.boardId !== id);    
+        boards = boards.filter((el) => el !== board);
+        
+        return reply
+        .status(204)
+        .send();
+    } 
+        return reply
+        .status(404)
+        .send('Not found');
+    
 }
 
 

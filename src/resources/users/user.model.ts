@@ -7,7 +7,7 @@ import { Iuser } from '../../db/data';
  * @param id -  uuid v4 id number. No need to pass. It will be cteated automatically by constructor. 
  * @param name - name of user. Required.
  * @param login - users login. Required.
- * @param login - users password. Required.
+ * @param password - users password. Required.
  */
 
 class User {

@@ -48,5 +48,6 @@ module.exports = {
     'tsdoc/syntax': 'error',
     '@typescript-eslint/no-explicit-any': ['error'],
     'lines-between-class-members': 'off',
+    'tsdoc/syntax': 'warn'
   },
 };

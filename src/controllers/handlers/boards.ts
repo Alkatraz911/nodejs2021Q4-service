@@ -5,7 +5,7 @@ import { Board } from '../../resources/boards/board.model';
 
 
 let  { boards } = data;
-let { tasks } = data;
+const { tasks } = data;
 
 /**
  * Returns  array of created boards or empty array if no boards were created

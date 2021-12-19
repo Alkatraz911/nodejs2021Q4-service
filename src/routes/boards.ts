@@ -36,6 +36,7 @@ const deleteBoardOpts:CustomRoute = {
     handler: deleteBoard
 }
 
+
 const boardsRoutes:FastifyPluginCallback = (server, _option, done) => {
     server.get('/boards', getBoardsOpts);
     server.get('/boards/:id', getBoardOpts);

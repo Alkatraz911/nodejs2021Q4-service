@@ -25,18 +25,7 @@ interface Iid {
    id: object; 
 }
 
-const task:Itask = {
-    type: 'object',
-    properties: {
-        id: typeString,
-        title: typeString,
-        order: { type: "number"},
-        description: typeString,
-        userId: { type: ["string","null"]}, 
-        boardId: { type: ["string","null"]},
-        columnId: { type: ["string","null"]}
-    },
-};
+
 
 const body: Itask = {
     type: "object",

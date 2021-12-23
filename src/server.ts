@@ -29,7 +29,7 @@ try {
     console.log(`Server started at port ${PORT}`);
 
     process.on('uncaughtException', (error, origin) => {
-        console.error(`captured error: ${error.message}`);
+        console.error(`${new Date()} captured error: ${error.message} \n`);
         fs.writeFileSync('./src/logs/fatal.json', error.message);
         process.exit(1);
     });

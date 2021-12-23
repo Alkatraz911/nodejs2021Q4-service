@@ -55,7 +55,7 @@
     "fastify": "^3.24.1",
     "fastify-plugin": "^3.0.0",
     "pino-pretty": "^7.3.0",
-    "swagger-ui-express": "4.1.6",
+    "swagger-ui-express": "^4.3.0",
     "ts-node": "^10.4.0",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"

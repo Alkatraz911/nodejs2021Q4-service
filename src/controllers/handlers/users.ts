@@ -2,6 +2,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Iuser } from '../../db/data';
 import { User } from '../../resources/users/user.model';
+import { ValidationError } from '../../errorHandler'
 
 const { users, tasks} = data;
 
@@ -14,6 +15,7 @@ const { users, tasks} = data;
 
 function getUsers(req:FastifyRequest, reply:FastifyReply) {
     const result = users.map(el => User.toResponse(el));
+    throw new ValidationError();
     return reply
     .status(200)
     .send(result);

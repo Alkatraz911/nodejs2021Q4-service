@@ -1,11 +1,41 @@
-{"level":30,"time":1640251358848,"pid":11284,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640251451394,"pid":11884,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640252605150,"pid":13672,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":50,"time":1640252606524,"pid":13672,"hostname":"Computer"}
-{"level":30,"time":1640253218682,"pid":12072,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640255731513,"pid":12280,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640255820196,"pid":13980,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640255855353,"pid":13648,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640255935932,"pid":4760,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640256011111,"pid":11696,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
-{"level":30,"time":1640256102020,"pid":12440,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+
+{"level":30,"time":1640339111128,"pid":14176,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339111128,"pid":14176,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339111128,"pid":14176,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339178823,"pid":14176,"hostname":"Computer","reqId":"req-1","req":{"method":"GET","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56568},"msg":"incoming request"}
+{"level":30,"time":1640339178823,"pid":14176,"hostname":"Computer","reqId":"req-1","req":{"method":"GET","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56568},"msg":"incoming request"}
+{"level":30,"time":1640339178823,"pid":14176,"hostname":"Computer","reqId":"req-1","req":{"method":"GET","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56568},"msg":"incoming request"}
+{"level":30,"time":1640339178839,"pid":14176,"hostname":"Computer","reqId":"req-1","res":{"statusCode":400},"responseTime":14.630043983459473,"msg":"request completed"}
+{"level":30,"time":1640339178839,"pid":14176,"hostname":"Computer","reqId":"req-1","res":{"statusCode":400},"responseTime":14.630043983459473,"msg":"request completed"}
+{"level":30,"time":1640339178839,"pid":14176,"hostname":"Computer","reqId":"req-1","res":{"statusCode":400},"responseTime":14.630043983459473,"msg":"request completed"}
+{"level":30,"time":1640339453779,"pid":11672,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339453779,"pid":11672,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339453779,"pid":11672,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339467591,"pid":11672,"hostname":"Computer","reqId":"req-1","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56847},"msg":"incoming request"}
+{"level":30,"time":1640339467591,"pid":11672,"hostname":"Computer","reqId":"req-1","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56847},"msg":"incoming request"}
+{"level":30,"time":1640339467591,"pid":11672,"hostname":"Computer","reqId":"req-1","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56847},"msg":"incoming request"}
+{"level":30,"time":1640339467604,"pid":11672,"hostname":"Computer","reqId":"req-1","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339467621,"pid":11672,"hostname":"Computer","reqId":"req-1","res":{"statusCode":201},"responseTime":29.569769024848938,"msg":"request completed"}
+{"level":30,"time":1640339467604,"pid":11672,"hostname":"Computer","reqId":"req-1","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339467621,"pid":11672,"hostname":"Computer","reqId":"req-1","res":{"statusCode":201},"responseTime":29.569769024848938,"msg":"request completed"}
+{"level":30,"time":1640339467604,"pid":11672,"hostname":"Computer","reqId":"req-1","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339467621,"pid":11672,"hostname":"Computer","reqId":"req-1","res":{"statusCode":201},"responseTime":29.569769024848938,"msg":"request completed"}
+{"level":30,"time":1640339477951,"pid":11672,"hostname":"Computer","reqId":"req-2","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56849},"msg":"incoming request"}
+{"level":30,"time":1640339477951,"pid":11672,"hostname":"Computer","reqId":"req-2","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56849},"msg":"incoming request"}
+{"level":30,"time":1640339477951,"pid":11672,"hostname":"Computer","reqId":"req-2","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56849},"msg":"incoming request"}
+{"level":30,"time":1640339477953,"pid":11672,"hostname":"Computer","reqId":"req-2","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339477954,"pid":11672,"hostname":"Computer","reqId":"req-2","res":{"statusCode":201},"responseTime":2.2364970445632935,"msg":"request completed"}
+{"level":30,"time":1640339477953,"pid":11672,"hostname":"Computer","reqId":"req-2","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339477954,"pid":11672,"hostname":"Computer","reqId":"req-2","res":{"statusCode":201},"responseTime":2.2364970445632935,"msg":"request completed"}
+{"level":30,"time":1640339477953,"pid":11672,"hostname":"Computer","reqId":"req-2","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339477954,"pid":11672,"hostname":"Computer","reqId":"req-2","res":{"statusCode":201},"responseTime":2.2364970445632935,"msg":"request completed"}
+{"level":30,"time":1640339569548,"pid":7948,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339576388,"pid":7948,"hostname":"Computer","reqId":"req-1","req":{"method":"POST","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56856},"msg":"incoming request"}
+{"level":30,"time":1640339576405,"pid":7948,"hostname":"Computer","reqId":"req-1","body":{"title":"koli","login":"tolan","columns":[],"order":2,"name":"tolia","password":"123"},"msg":"parsed body"}
+{"level":30,"time":1640339576430,"pid":7948,"hostname":"Computer","reqId":"req-1","res":{"statusCode":201},"responseTime":38.72146701812744,"msg":"request completed"}
+{"level":30,"time":1640339595760,"pid":7948,"hostname":"Computer","reqId":"req-2","req":{"method":"GET","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56859},"msg":"incoming request"}
+{"level":30,"time":1640339595764,"pid":7948,"hostname":"Computer","reqId":"req-2","res":{"statusCode":400},"responseTime":4.086112976074219,"msg":"request completed"}
+{"level":30,"time":1640339830691,"pid":4828,"hostname":"Computer","msg":"Server listening at http://127.0.0.1:4000"}
+{"level":30,"time":1640339852206,"pid":4828,"hostname":"Computer","reqId":"req-1","req":{"method":"GET","url":"/users","hostname":"127.0.0.1:4000","remoteAddress":"127.0.0.1","remotePort":56890},"msg":"incoming request"}
+{"level":50,"time":1640339852213,"pid":4828,"hostname":"Computer","msg":"Fri Dec 24 2021 12:57:32 GMT+0300 (Москва, стандартное время) BAD REQUEST"}
+{"level":30,"time":1640339852225,"pid":4828,"hostname":"Computer","reqId":"req-1","res":{"statusCode":400},"responseTime":17.576934933662415,"msg":"request completed"}

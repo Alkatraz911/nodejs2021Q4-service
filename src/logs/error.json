@@ -1,0 +1,2 @@
+Fri Dec 24 2021 12:35:19 GMT+0300 (Москва, стандартное время) captured error: ENOENT: no such file or directory, open 'C:\Users\ПАвел\myproject\nodejs2021Q4-service\logs\logs.json' 
+{"level":50,"time":1640339852213,"pid":4828,"hostname":"Computer","msg":"Fri Dec 24 2021 12:57:32 GMT+0300 (Москва, стандартное время) BAD REQUEST"}

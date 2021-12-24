@@ -1,11 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+import { config } from './common/config';
+import {TransportMultiOptions, pino} from 'pino'
 
-const logger = {
-    // prettyPrint: {
-    //     translateTime: 'SYS:standard yyyy-mm-dd HH:MM:ss.l o',
-    //     ignore: 'pid,level',
-    // },
-    file: './src/logs/logs.json',
+const transport = pino.transport(<TransportMultiOptions>{
+    level: config.LOG_LEVEL,
     serializers: {
         res(reply:FastifyReply) {
             return {
@@ -22,10 +20,18 @@ const logger = {
             };
         }
     },
+    targets: [{
+        level: 'trace',
+        target: 'pino/file',
+        options: { destination: './src/logs/logs.json' }
+    }, {
+        level: 'error',
+        target: 'pino/file',
+        options: { destination: './src/logs/error.json' }
+    }]
+});
 
-}
-
-
+const logger = pino(transport);
 
 
 export { logger }

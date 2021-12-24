@@ -15,7 +15,9 @@ const { users, tasks} = data;
 
 function getUsers(req:FastifyRequest, reply:FastifyReply) {
     const result = users.map(el => User.toResponse(el));
-    throw new ValidationError();
+
+    // throw new ValidationError();
+
     return reply
     .status(200)
     .send(result);

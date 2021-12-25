@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { config } from './common/config';
 import {TransportMultiOptions, pino} from 'pino'
+import { config } from './common/config';
 
 const transport = pino.transport(<TransportMultiOptions>{
     level: config.LOG_LEVEL,

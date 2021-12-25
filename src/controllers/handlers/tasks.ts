@@ -2,7 +2,14 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Itask } from '../../db/data';
 import { Task }  from '../../resources/tasks/task.model';
 
+export type CustomRequest = FastifyRequest<{
+    Params:{
+        id: string;
+        boardId: string;
+    }
 
+    Body: Itask;
+}>
 
 /**
  * Returns  array of created tasks or empty array if no tasks were created
@@ -13,21 +20,14 @@ import { Task }  from '../../resources/tasks/task.model';
 
 const getTasks =  (req:CustomRequest, reply:FastifyReply) => {
 
-    let { boardId } = req.params;
+    const { boardId } = req.params;
     const result = data.tasks.filter(el => el.boardId === boardId);
     return reply
     .status(200)
     .send(result);
 }
 
-export type CustomRequest = FastifyRequest<{
-    Params:{
-        id: string;
-        boardId: string;
-    }
 
-    Body: Itask;
-}>
 
 /**
  * Returns task with requested id
@@ -105,11 +105,11 @@ const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
         return reply
         .status(204)
         .send()
-    } else {
+    } 
         return reply
         .status(404)
         .send('Not found');
-    }
+    
 
     
 }

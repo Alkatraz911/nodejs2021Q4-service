@@ -103,17 +103,19 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
 const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
     const board = boards.find((el) => el.id === id);
+
     if (board) {
         data.tasks = tasks.filter((el) => el.boardId !== id);    
         boards = boards.filter((el) => el !== board);
-        
         return reply
         .status(204)
         .send();
-    } 
+    } else {
         return reply
         .status(404)
         .send('Not found');
+    }
+
     
 }
 

@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Itask } from '../../db/data';
 import { Task }  from '../../resources/tasks/task.model';
 
-let  { tasks } = data;
+
 
 /**
  * Returns  array of created tasks or empty array if no tasks were created
@@ -12,8 +12,9 @@ let  { tasks } = data;
  */
 
 const getTasks =  (req:CustomRequest, reply:FastifyReply) => {
+
     let { boardId } = req.params;
-    const result = tasks.filter(el => el.boardId === boardId);
+    const result = data.tasks.filter(el => el.boardId === boardId);
     return reply
     .status(200)
     .send(result);
@@ -37,7 +38,7 @@ export type CustomRequest = FastifyRequest<{
 
 const getTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
-    const task = tasks.find((el) => el.id === id);
+    const task = data.tasks.find((el) => el.id === id);
     if (!task) {
         return reply.status(404).send({
             errorMsg: `task with id ${id} not found`,
@@ -59,7 +60,7 @@ const addTask = (req:CustomRequest, reply:FastifyReply) => {
     const task = new Task(req.body);
     const { boardId }  = req.params;
     task.boardId = boardId;
-    tasks.push(task);
+    data.tasks.push(task);
     return reply
     .status(201)
     .send(Task.toResponse(task));
@@ -74,7 +75,7 @@ const addTask = (req:CustomRequest, reply:FastifyReply) => {
 
 const editTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
-    const task = tasks.find((el) => el.id === id);
+    const task = data.tasks.find((el) => el.id === id);
     if (task) {
         task.title = req.body.title;
         task.order = req.body.order;
@@ -97,10 +98,19 @@ const editTask = (req:CustomRequest, reply:FastifyReply) => {
 
 const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
     const { id } = req.params;
-    const index = tasks.findIndex(el => el.id === id);
-    tasks.splice(index, index + 1);
-    reply.status(204);
-    return reply.send()
+    const task = data.tasks.find(el=>el.id === id);
+    if(task) {
+        data.tasks = data.tasks.filter(el => el.id !== id);
+        
+        return reply
+        .status(204)
+        .send()
+    } else {
+        return reply
+        .status(404)
+        .send('Not found');
+    }
+
     
 }
 

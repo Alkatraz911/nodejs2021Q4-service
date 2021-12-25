@@ -4,7 +4,7 @@ import { data, Iuser } from '../../db/data';
 import { User } from '../../resources/users/user.model';
 import { ValidationError } from '../../errorHandler'
 
-const { users, tasks} = data;
+const { users } = data;
 
 /**
  * Returns  array of created users or empty array if no users were created
@@ -103,7 +103,7 @@ function deleteUser(req:CustomRequest, reply:FastifyReply) {
     const index:number = users.findIndex(el => el.id === id);
     const result = users.splice(index, index + 1);
     
-    tasks.forEach(el => {
+    data.tasks.forEach(el => {
         const element = el
         if (element.userId === id) {
             element.userId = null;

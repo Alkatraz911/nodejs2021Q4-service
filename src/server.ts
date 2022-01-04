@@ -29,7 +29,7 @@ try {
     
     server.setErrorHandler(customErrorHandler);
 
-    server.listen(PORT);
+    server.listen(PORT, '0.0.0.0');
     console.log(`Server started at port ${PORT}`);
     console.log(`Log level : ${config.LOG_LEVEL}`);
 

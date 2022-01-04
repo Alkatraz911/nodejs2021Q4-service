@@ -1,0 +1,14 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  app:
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    links:
+      - postgres
+    # environment:
+    #   - PORT=4000
+  postgres:
+    build: ./src/db
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}  

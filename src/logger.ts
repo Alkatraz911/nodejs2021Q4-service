@@ -1,8 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import {TransportMultiOptions, pino} from 'pino'
 import { config } from './common/config';
+import path from 'path'
+import { setFlagsFromString } from "v8";
 
-const transport = pino.transport(<TransportMultiOptions>{
+const transport = pino.transport(<TransportMultiOptions> {
     level: config.LOG_LEVEL,
     serializers: {
         res(reply:FastifyReply) {
@@ -20,18 +22,20 @@ const transport = pino.transport(<TransportMultiOptions>{
             };
         }
     },
+
     targets: [{
         level: 'trace',
         target: 'pino/file',
-        options: { destination: './src/logs/logs.json' }
+        options: { destination: path.resolve(process.cwd(), 'src/logs/logs.json')   }
     }, {
         level: 'error',
         target: 'pino/file',
-        options: { destination: './src/logs/error.json' }
+        options: { destination: path.resolve(process.cwd(), 'src/logs/error.json')  }
     }]
 });
 
 const logger = pino(transport);
+
 
 
 export { logger }

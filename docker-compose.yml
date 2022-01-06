@@ -12,8 +12,8 @@ services:
     logging:
       driver: json-file
     volumes:
-      - ./logs:/user/app/src/logs
-      - src:/user/app/src
+      - logs:/user/app/src/logs
+      - ./src:/user/app/src
     environment:
       POSTGRES_HOST: postgres
     restart: always 
@@ -25,7 +25,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
-      - ./pg_data:/var/lib/postgressql/data/pgdata    
+      - pg_data:/var/lib/postgressql/data/pgdata    
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -35,6 +35,7 @@ services:
 networks:
   myNet:
 volumes:
-  src:
+  logs:
+  pg_data:
 
 

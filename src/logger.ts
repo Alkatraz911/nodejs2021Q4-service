@@ -1,8 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import {TransportMultiOptions, pino} from 'pino'
-import { config } from './common/config';
 import path from 'path'
-import { setFlagsFromString } from "v8";
+import { config } from './common/config';
 
 const transport = pino.transport(<TransportMultiOptions> {
     level: config.LOG_LEVEL,

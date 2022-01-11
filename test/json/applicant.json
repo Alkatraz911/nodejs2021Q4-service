@@ -1,0 +1,45 @@
+{
+    "data": {
+        "status": {"selector": "#mainForm\\:participCardView\\:procStatus", "content": "Заявитель по материалам проверки" },
+        "type": {"selector": "#mainForm\\:participCardView\\:personType_input","content":"Физическое лицо"},
+        "firstname": {"selector": "Фамилия","content": "Знающий"},
+        "secondname": {"selector": "Имя","content": "Иван"},
+        "thirdname": {"selector": "Отчество","content": "Иванович"},
+        "birthdate": {"selector": "Дата рождения","content": "06071988"},
+        "sex": {"selector": "Пол","content": "Мужской"},
+        "maleStatus": {"selector": "Семейное положение","content": "Женат"},
+        "militaryServ": {"selector": "Отношение к воинской службе","content": "В отставке"},
+        "militaryRank": {"selector": "Звание, чин","content": "лейтенант запаса"},
+        "education": {"selector": "Образование","content": "Высшее"},
+        "workPlace": {"selector": "Место работы","content": "ООО 'Мануфактура'"},
+        "position": {"selector": "Должность","content": "юристконсульт"},
+        "crimeRec": {"selector": "Судимость","content": "Не судим/не судима"},
+        "docType": {"selector": "Вид документа","content": "Паспорт гражданина РБ"},
+        "docSeria": {"selector": "Серия документа","content": "МК"},
+        "docNumber": {"selector": "Номер документа","content": "1113356"},
+        "personalNumber": {"selector": "Идентификационный номер","content": "4060788Z055ZZ3"},
+        "issueDate": {"selector": "Дата выдачи","content": "06122018"},
+        "expireDate": {"selector": "Срок действия","content": "06122018"},
+        "issueOrganComplete": {"selector": "Кем выдан","content": "Ленинское РУВД г.Минска"},
+        "locality": {"selector": "#FIRST_DIALOG_FORM\\:locality","content": "Минск"},
+        "street": {"selector": "#FIRST_DIALOG_FORM\\:street","content": "Плеханова"},
+        "house": {"selector": "#FIRST_DIALOG_FORM\\:house","content": "14"},
+        "flat": {"selector": "#FIRST_DIALOG_FORM\\:flat","content": "19"},
+        "phone": {
+            "selector": "#mainForm\\:participCardView\\:contactTable_data > tr > td:nth-child(2) > input",
+            "content": "+375297654322"},
+        "text": {
+            "selector": "Фабула",
+            "content": "Неустановленное лицо 04.03.2020 в период времени с 05.00 часов по 07.00 часов проникло на склад ООО «Мануфактура», расположенный по адресу: г. Минск, ул. Прушинских, д. 51 откуда тайно похитило 5 системных блоков в корпусе черного цвета, стоимостью 500 рублей каждый."
+        },
+        "harmType": {
+            "selector": "#mainForm\\:participCardView\\:harmTable\\:0\\:harmType_input",
+            "content": "материальный"
+        },
+        "harmSize": {
+            "selector": "#mainForm\\:participCardView\\:harmTable_data > tr > td:nth-child(2) > span > input",
+            "content": "2500"
+        }
+    }
+
+}

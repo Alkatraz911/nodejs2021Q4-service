@@ -6,6 +6,7 @@ import { boardsRoutes } from './routes/boards';
 import { tasksRoutes } from './routes/tasks';
 import { logger } from './logger';
 import { customErrorHandler } from './errorHandler';
+import "reflect-metadata";
 
 
 const { PORT } = config;

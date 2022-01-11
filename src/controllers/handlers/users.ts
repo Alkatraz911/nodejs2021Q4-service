@@ -2,6 +2,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { data, Iuser } from '../../db/data';
 import { User } from '../../resources/users/user.model';
+import { userRepository } from '../../resources/users/user.repository';
 // import { ServerError } from '../../errorHandler';
 
 const { users } = data;
@@ -13,11 +14,9 @@ const { users } = data;
  * @returns array of created users or empty array if no users were created
  */
 
-function getUsers(req:FastifyRequest, reply:FastifyReply) {
-    const result = users.map(el => User.toResponse(el));
-
+async function getUsers(req:FastifyRequest, reply:FastifyReply) {
+    const result = await userRepository.getAll();
     // throw new ServerError();
-
     return reply
     .status(200)
     .send(result);
@@ -40,7 +39,7 @@ export type CustomRequest = FastifyRequest<{
  * @returns user(object) with requested id or error 404 if user not found
  */
 
-function getUser (req:CustomRequest, reply:FastifyReply) {
+async function getUser (req:CustomRequest, reply:FastifyReply) {
     const  { id }  = req.params;
     const user = users.find((el) => el.id === id);
     if (!user) {

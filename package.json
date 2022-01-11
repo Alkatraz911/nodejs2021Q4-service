@@ -48,13 +48,16 @@
     "eslint-plugin-tsdoc": "^0.2.14",
     "fastify": "^3.24.1",
     "fastify-plugin": "^3.0.0",
+    "pg": "^8.7.1",
     "pino": "^7.6.1",
     "pino-pretty": "^7.3.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.41",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.12",
+    "@types/node": "^16.11.19",
     "@types/uuid": "^8.3.3",
     "chai": "^4.3.4",
     "debug": "4.3.2",

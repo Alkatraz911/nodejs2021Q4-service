@@ -1,11 +1,10 @@
 
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { data, Iuser } from '../../db/data';
-import { User } from '../../resources/users/user.model';
+import { Iuser } from '../../db/data';
 import { userRepository } from '../../resources/users/user.repository';
 // import { ServerError } from '../../errorHandler';
 
-const { users } = data;
+
 
 /**
  * Returns  array of created users or empty array if no users were created
@@ -14,19 +13,19 @@ const { users } = data;
  * @returns array of created users or empty array if no users were created
  */
 
-async function getUsers(req:FastifyRequest, reply:FastifyReply) {
-    const result = await userRepository.getAll();
+async function getUsers(_req: FastifyRequest, reply: FastifyReply) {
+    const result = await userRepository.getAllUsers();
     // throw new ServerError();
     return reply
-    .status(200)
-    .send(result);
+        .status(200)
+        .send(result);
 }
 
 
 
 export type CustomRequest = FastifyRequest<{
-    Params:{
-        id: string|undefined;
+    Params: {
+        id: string;
     }
 
     Body: Iuser;
@@ -39,17 +38,17 @@ export type CustomRequest = FastifyRequest<{
  * @returns user(object) with requested id or error 404 if user not found
  */
 
-async function getUser (req:CustomRequest, reply:FastifyReply) {
-    const  { id }  = req.params;
-    const user = users.find((el) => el.id === id);
+async function getUser(req: CustomRequest, reply: FastifyReply) {
+    const { id } = req.params;
+    const user = await userRepository.getUser(id)
     if (!user) {
         return reply.status(404).send({
             errorMsg: `User with id ${id} not found`,
         });
     }
     return reply
-    .status(200)
-    .send(User.toResponse(user));
+        .status(200)
+        .send(userRepository.toResponse(user));
 };
 
 /**
@@ -59,12 +58,17 @@ async function getUser (req:CustomRequest, reply:FastifyReply) {
  * @returns added user(object)
  */
 
-function addUser (req:CustomRequest, reply:FastifyReply) {
-    const user = new User(req.body);
-    users.push(user);
-    return reply
-    .status(201)
-    .send(User.toResponse(user));
+async function addUser(req: CustomRequest, reply: FastifyReply) {
+    const user = await userRepository.createUser(req.body);
+    if (user) {
+        return reply
+            .status(201)
+            .send(userRepository.toResponse(user));
+    } else {
+        return reply
+        .status(404)
+        .send('Erorr');
+    }
 }
 
 /**
@@ -74,20 +78,17 @@ function addUser (req:CustomRequest, reply:FastifyReply) {
  * @returns edited user(object) or error 404 if board not found
  */
 
-function editUser (req:CustomRequest, reply:FastifyReply) {
+async function editUser(req: CustomRequest, reply: FastifyReply) {
     const { id } = req.params;
-    const user = users.find((el) => el.id === id);
-    if(user) {
-        user.login = req.body.login;
-        user.password = req.body.password;
-        user.name = req.body.name;
+    const user = await userRepository.updateUser(id, req.body);
+    if (user) {
         return reply
-        .status(200)
-        .send(User.toResponse(user));
+            .status(200)
+            .send(userRepository.toResponse(user));
     }
     return reply
-    .status(404)
-    .send('Not found');
+        .status(404)
+        .send('Not found');
 }
 
 /**
@@ -97,21 +98,21 @@ function editUser (req:CustomRequest, reply:FastifyReply) {
  * @returns status code 204 or error 404 if user with requested id not found
  */
 
-function deleteUser(req:CustomRequest, reply:FastifyReply) {
+async function deleteUser(req: CustomRequest, reply: FastifyReply) {
     const { id } = req.params;
-    const index:number = users.findIndex(el => el.id === id);
-    const result = users.splice(index, index + 1);
-    
-    data.tasks.forEach(el => {
-        const element = el
-        if (element.userId === id) {
-            element.userId = null;
-        } 
-    });
-    return reply
-    .status(200)
-    .send(result.forEach(el => User.toResponse(el)));
+    if (id) {
+        await userRepository.deleteUser(id);
+        //Need to add unasign method from taskRepo
+        return reply
+            .status(204)
+            .send();
+    } else {
+        return reply
+        .status(404)
+        .send('Erorr');
+    }
+
 }
 
 
-export  { getUsers, getUser, addUser, editUser, deleteUser }
+export { getUsers, getUser, addUser, editUser, deleteUser }

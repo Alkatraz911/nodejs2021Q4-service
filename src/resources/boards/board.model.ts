@@ -1,6 +1,8 @@
 
-import { v4 as uuidv4 } from 'uuid';
 import { Iboard } from '../../db/data';
+import {
+  Entity, PrimaryGeneratedColumn, Column
+} from 'typeorm';
 
 /**
  * Creates new board.
@@ -9,26 +11,14 @@ import { Iboard } from '../../db/data';
  * @param columns - columns of board. Required array. Empty array can be passed.  
  */
 
-class Board {
+@Entity({name: "boards"})
+class Board implements Iboard {
+  @PrimaryGeneratedColumn('uuid')
     id: string;
+  @Column({ length: 255, default: 'boardtitle' })    
     title: string;
+  @Column("json")  
     columns: object[];
-
-  constructor({
-    id = uuidv4(),
-    title = '',
-    columns = []
-  }:Iboard) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns;
-  }
-/**
- * Returns instance od board to response  
- * @param board - instance of borad.
- * @returns Returns instance od board
- */
-  public static toResponse = (board:Iboard):Iboard => board
 }
 
 export { Board }

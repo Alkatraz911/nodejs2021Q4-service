@@ -14,7 +14,7 @@ class ServerError implements FastifyError {
 }
 
 
-const customErrorHandler = (error:unknown, request:FastifyRequest, reply:FastifyReply) => {
+const customErrorHandler = (error:unknown, _request:FastifyRequest, reply:FastifyReply) => {
     if ( error instanceof ServerError ) {
         server.log.error(`${new Date() } ${  error.message}`);
         reply.status(error.statusCode).send(error.message);

@@ -5,3 +5,5 @@ Sat Dec 25 2021 09:28:42 GMT+0300 (Москва, стандартное врем
 Sat Dec 25 2021 09:30:34 GMT+0300 (Москва, стандартное время) captured error: undefined 
 Sat Dec 25 2021 09:31:57 GMT+0300 (Москва, стандартное время) captured error: undefined 
 Sat Dec 25 2021 09:32:39 GMT+0300 (Москва, стандартное время) Unhandled rejection detected: Oops! 
+Thu Jan 13 2022 13:26:02 GMT+0300 (Москва, стандартное время) Unhandled rejection detected: listen EADDRINUSE: address already in use 0.0.0.0:4000 
+Thu Jan 13 2022 13:30:11 GMT+0300 (Москва, стандартное время) Unhandled rejection detected: listen EADDRINUSE: address already in use 0.0.0.0:4000 

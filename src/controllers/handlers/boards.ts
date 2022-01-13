@@ -1,11 +1,10 @@
 
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { data, Iboard } from'../../db/data';
-import { Board } from '../../resources/boards/board.model';
+import { Iboard } from '../../db/data';
+import { boardRepository } from '../../resources/boards/board.repository';
 
 
-let  { boards } = data;
-const { tasks } = data;
+
 
 /**
  * Returns  array of created boards or empty array if no boards were created
@@ -14,17 +13,17 @@ const { tasks } = data;
  * @returns array of created boards or empty array if no boards were created
  */
 
-const getBoards = async (req:FastifyRequest, reply:FastifyReply) => {
-    const result = boards.map(el => Board.toResponse(el));
+const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
+    const result = await boardRepository.getAllBoards();
     return reply
-    .status(200)
-    .send(result);
+        .status(200)
+        .send(result);
 }
 
 
 
 export type CustomRequest = FastifyRequest<{
-    Params:{
+    Params: {
         id: string;
     }
 
@@ -38,18 +37,20 @@ export type CustomRequest = FastifyRequest<{
  * @returns board(object) with requested id or error 404 if board not found
  */
 
-const getBoard = (req:CustomRequest, reply:FastifyReply) => {
+const getBoard = async (req: CustomRequest, reply: FastifyReply) => {
     const { id } = req.params;
-    const board = boards.find((el) => el.id === id);
+    const board = await boardRepository.getBoard(id);
     if (!board) {
         return reply.status(404).send({
             errorMsg: `board with id ${id} not found`,
         });
-    } 
+    } else {
         return reply
-        .status(200)
-        .send(Board.toResponse(board));
-    
+            .status(200)
+            .send(board);
+    }
+
+
 
 };
 
@@ -60,12 +61,16 @@ const getBoard = (req:CustomRequest, reply:FastifyReply) => {
  * @returns added board(object)
  */
 
-const addBoard = (req:CustomRequest, reply:FastifyReply) => {
-    const board = new Board(req.body);
-    boards.push(board);
+const addBoard = async (req: CustomRequest, reply: FastifyReply) => {
+    const board = await boardRepository.createBoard(req.body);
+    if (board) {
+        return reply
+            .status(201)
+            .send(board);
+    }
     return reply
-    .status(201)
-    .send(Board.toResponse(board));
+        .status(404)
+        .send('Erorr');
 }
 
 /**
@@ -75,21 +80,19 @@ const addBoard = (req:CustomRequest, reply:FastifyReply) => {
  * @returns edited board(object) or error 404 if board not found
  */
 
-const editBoard = (req:CustomRequest, reply:FastifyReply) => {
+const editBoard = async (req: CustomRequest, reply: FastifyReply) => {
     const { id } = req.params;
-    const board = boards.find((el) => el.id === id);
+    const board = await boardRepository.updateBoard(id, req.body);
 
-    if(board) {
-        board.title = req.body.title;
-        board.columns = req.body.columns;
+    if (board) {
         return reply
-        .status(200)
-        .send(Board.toResponse(board));
-    } 
-        return reply
+            .status(200)
+            .send(board);
+    }
+    return reply
         .status(404)
         .send('Not found');
-    
+
 
 }
 
@@ -100,23 +103,23 @@ const editBoard = (req:CustomRequest, reply:FastifyReply) => {
  * @returns status code 204 or error 404 if board with requested id not found
  */
 
-const deleteBoard = (req:CustomRequest, reply:FastifyReply) => {
+const deleteBoard = async (req: CustomRequest, reply: FastifyReply) => {
     const { id } = req.params;
-    const board = boards.find((el) => el.id === id);
 
-    if (board) {
-        data.tasks = tasks.filter((el) => el.boardId !== id);    
-        boards = boards.filter((el) => el !== board);
+    if (id) {
+        await boardRepository.deleteBoard(id);
+        //Need to add deleting tasks method from taskRepo
         return reply
-        .status(204)
-        .send();
-    } 
+            .status(204)
+            .send();
+    } else {
         return reply
-        .status(404)
-        .send('Not found');
-    
+            .status(404)
+            .send('Erorr');
+    }
 
-    
+
+
 }
 
 

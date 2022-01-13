@@ -2,11 +2,14 @@ import { EntityRepository, Repository, getConnection } from 'typeorm';
 import { User } from './user.model';
 import { Iuser } from '../../db/data';
 
+
 @EntityRepository(User)
 class UserRepository extends Repository<User> {
 
-  getAll() {
-    return this.createQueryBuilder().getMany();
+  getAllUsers() {
+    return  this
+    .createQueryBuilder()
+    .getMany();
   }
 
   async createUser(user: Partial<Iuser>) {
@@ -20,11 +23,11 @@ class UserRepository extends Repository<User> {
       .values(values)
       .execute();
 
-    return this.getUser(identifiers[0]?.['id']);
+    return await this.getUser(identifiers[0]?.['id']);
   }
 
-  getUser(id: string) {
-    return this.createQueryBuilder('user')
+  async getUser(id: string) {
+    return await this.createQueryBuilder('user')
       .where('user.id = :id', { id })
       .getOne();
   }
@@ -39,8 +42,8 @@ class UserRepository extends Repository<User> {
     return this.getUser(id);
   }
 
-  deleteUser(id: string) {
-    return this.createQueryBuilder()
+  async deleteUser(id: string) {
+    return await this.createQueryBuilder()
       .delete()
       .from(User)
       .where('id = :id', { id })
@@ -52,4 +55,5 @@ class UserRepository extends Repository<User> {
   }
 }
 
-export const userRepository = getConnection().getCustomRepository(UserRepository);
+const userRepository = getConnection().getCustomRepository(UserRepository);
+export { userRepository }

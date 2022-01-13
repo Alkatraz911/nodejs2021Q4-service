@@ -1,5 +1,6 @@
 import { EntityRepository, Repository, getConnection } from 'typeorm';
 import { Iboard } from '../../db/data';
+import { taskRepository } from '../tasks/task.repository';
 import { Board } from './board.model'
 
 @EntityRepository(Board)
@@ -44,7 +45,7 @@ class BoardRepository extends Repository<Board> {
 
 
     async deleteBoard(id: string) {
-
+        await taskRepository.deleteTasksForBoard(id);
         return await this.createQueryBuilder()
             .delete()
             .from(Board)

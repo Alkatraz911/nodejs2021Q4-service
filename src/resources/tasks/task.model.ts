@@ -1,6 +1,7 @@
-
-import { v4 as uuidv4 } from 'uuid';
 import { Itask } from '../../db/data';
+import {
+  Entity, PrimaryGeneratedColumn, Column
+} from 'typeorm';
 
 /**
  * Creates new task.
@@ -13,40 +14,22 @@ import { Itask } from '../../db/data';
  * @param columnID  - id of the column in which task was created. 
  */
 
-class Task {
+@Entity({ name: 'tasks' })
+class Task implements Itask {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+  @Column({ length: 255, default: 'tasktitle' })
   title: string;
+  @Column('integer', { default: 0 })
   order: number;
+  @Column({ length: 255, default: 'description' })
   description: string;
+  @Column('varchar', { length: 255, default: null, nullable: true })
   userId: string|null;
+  @Column('varchar', { length: 255, default: null, nullable: true })
   boardId: string|null;
+  @Column('varchar', { length: 255, default: null, nullable: true })
   columnId: string|null;
-  constructor({
-    id = uuidv4(),
-    title = '',
-    order = 1,
-    description = '',
-    userId = null,
-    boardId = null,
-    columnId = null
-  }:Itask) {
-    this.id = id;
-    this.title = title;
-    this.order = order;
-    this.description = description;
-    this.userId = userId;
-    this.boardId = boardId;
-    this.columnId = columnId
-  }
 
-/**
- * Returns instance od task passed in method.
- * @param task - instance of user.
- * @returns Returns instance od task passed in method.
- */
-
-  static toResponse(task:Itask) {
-    return task;
-  }
 }
 export { Task };

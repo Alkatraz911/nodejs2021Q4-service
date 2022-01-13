@@ -1,6 +1,7 @@
 import { EntityRepository, Repository, getConnection } from 'typeorm';
 import { User } from './user.model';
 import { Iuser } from '../../db/data';
+import { taskRepository } from '../tasks/task.repository';
 
 
 @EntityRepository(User)
@@ -27,7 +28,7 @@ class UserRepository extends Repository<User> {
   }
 
   async getUser(id: string) {
-    return await this.createQueryBuilder('user')
+    return this.createQueryBuilder('user')
       .where('user.id = :id', { id })
       .getOne();
   }
@@ -43,6 +44,7 @@ class UserRepository extends Repository<User> {
   }
 
   async deleteUser(id: string) {
+    await taskRepository.unAssignUser(id)
     return await this.createQueryBuilder()
       .delete()
       .from(User)

@@ -24,7 +24,5 @@ class User implements Iuser {
   @Column({ length: 255, unique: true })
   password: string;
 
-
-
 }
 export { User };

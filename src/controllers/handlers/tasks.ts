@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { data, Itask } from '../../db/data';
-import { Task }  from '../../resources/tasks/task.model';
+import { Itask } from '../../db/data';
+import { taskRepository } from '../../resources/tasks/task.repository';
 
 export type CustomRequest = FastifyRequest<{
-    Params:{
+    Params: {
         id: string;
         boardId: string;
     }
@@ -18,13 +18,13 @@ export type CustomRequest = FastifyRequest<{
  * @returns array of created tasks or empty array if no tasks were created
  */
 
-const getTasks =  (req:CustomRequest, reply:FastifyReply) => {
+const getTasks = async (req: CustomRequest, reply: FastifyReply) => {
 
     const { boardId } = req.params;
-    const result = data.tasks.filter(el => el.boardId === boardId);
+    const result = await taskRepository.getAllTasks(boardId);
     return reply
-    .status(200)
-    .send(result);
+        .status(200)
+        .send(result);
 }
 
 
@@ -36,17 +36,17 @@ const getTasks =  (req:CustomRequest, reply:FastifyReply) => {
  * @returns task(object) with requested id or error 404 if task not found
  */
 
-const getTask = (req:CustomRequest, reply:FastifyReply) => {
-    const { id } = req.params;
-    const task = data.tasks.find((el) => el.id === id);
+const getTask = async (req: CustomRequest, reply: FastifyReply) => {
+    const { boardId, id } = req.params;
+    const task = await taskRepository.getTask(boardId, id);
     if (!task) {
         return reply.status(404).send({
             errorMsg: `task with id ${id} not found`,
         });
     }
     return reply
-    .status(200)
-    .send(Task.toResponse(task));
+        .status(200)
+        .send(task);
 };
 
 /**
@@ -56,14 +56,19 @@ const getTask = (req:CustomRequest, reply:FastifyReply) => {
  * @returns added task(object)
  */
 
-const addTask = (req:CustomRequest, reply:FastifyReply) => {
-    const task = new Task(req.body);
-    const { boardId }  = req.params;
-    task.boardId = boardId;
-    data.tasks.push(task);
-    return reply
-    .status(201)
-    .send(Task.toResponse(task));
+const addTask = async (req: CustomRequest, reply: FastifyReply) => {
+    const { boardId } = req.params;
+    const task = await taskRepository.createTask(boardId, req.body);
+    if (task) {
+        return reply
+            .status(201)
+            .send(task);
+    } else {
+        return reply
+            .status(404)
+            .send('Erorr');
+    }
+
 }
 
 /**
@@ -73,20 +78,17 @@ const addTask = (req:CustomRequest, reply:FastifyReply) => {
  * @returns edited task(object) or error 404 if task not found
  */
 
-const editTask = (req:CustomRequest, reply:FastifyReply) => {
-    const { id } = req.params;
-    const task = data.tasks.find((el) => el.id === id);
+const editTask = async (req: CustomRequest, reply: FastifyReply) => {
+    const { boardId, id } = req.params;
+    const task = await taskRepository.editTask(boardId, id, req.body);
     if (task) {
-        task.title = req.body.title;
-        task.order = req.body.order;
-        task.description = req.body.description;
         return reply
-        .status(200)
-        .send(Task.toResponse(task));
+            .status(200)
+            .send(task);
     }
     return reply
-    .status(404)
-    .send('Not found');
+        .status(404)
+        .send('Not found');
 }
 
 /**
@@ -96,23 +98,23 @@ const editTask = (req:CustomRequest, reply:FastifyReply) => {
  * @returns status code 204 or error 404 if task with requested id not found
  */
 
-const deleteTask = (req:CustomRequest, reply:FastifyReply) => {
-    const { id } = req.params;
-    const task = data.tasks.find(el=>el.id === id);
-    if(task) {
-        data.tasks = data.tasks.filter(el => el.id !== id);
-        
+const deleteTask = async (req: CustomRequest, reply: FastifyReply) => {
+    const { boardId, id } = req.params;
+    const task = await taskRepository.getTask(boardId,id);
+    if (task) {
+        await taskRepository.deleteTask(boardId,id);
+
         return reply
-        .status(204)
-        .send()
-    } 
-        return reply
+            .status(204)
+            .send()
+    }
+    return reply
         .status(404)
         .send('Not found');
-    
 
-    
+
+
 }
 
 
-export  { getTasks, getTask, addTask, editTask, deleteTask }
+export { getTasks, getTask, addTask, editTask, deleteTask }

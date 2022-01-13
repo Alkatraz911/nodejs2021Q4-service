@@ -1,6 +1,7 @@
 import { config } from './config';
 import { User } from '../resources/users/user.model'
 import { Board } from '../resources/boards/board.model';
+import { Task } from '../resources/tasks/task.model';
 import { ConnectionOptions } from 'typeorm';
 
 
@@ -13,7 +14,8 @@ const ormConfig: ConnectionOptions = {
     database: config.POSTGRES_DB,
     entities: [
         User,
-        Board
+        Board,
+        Task
     ],
     synchronize: true,
     logging: false,

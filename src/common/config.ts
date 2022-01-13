@@ -14,6 +14,8 @@ interface Iconfig {
   POSTGRES_USER: string;
   POSTGRES_PASSWORD: string;
   POSTGRES_DB: string;
+  POSTGRES_HOST: string;
+  POSTGRES_CONTAINERPORT:string;
 }
 
 const config :Iconfig = {
@@ -25,6 +27,8 @@ const config :Iconfig = {
   POSTGRES_USER: process.env.POSTGRES_USER ? process.env.POSTGRES_USER : 'user',
   POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD ? process.env.POSTGRES_PASSWORD : '123',
   POSTGRES_DB: process.env.POSTGRES_DB ? process.env.POSTGRES_DB : '',
+  POSTGRES_HOST: process.env.POSTGRES_HOST ? process.env.POSTGRES_HOST : 'postrgres',
+  POSTGRES_CONTAINERPORT: process.env.POSTGRES_CONTAINERPORT ? process.env.POSTGRES_CONTAINERPORT : '5432'
 };
 
 export { config }

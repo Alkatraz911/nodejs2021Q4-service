@@ -23,7 +23,7 @@ services:
     networks:
       - myNet
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - ${POSTGRES_PORT}:${POSTGRES_CONTAINERPORT}
     volumes:
       - pg_data:/var/lib/postgressql/data/pgdata    
     environment:

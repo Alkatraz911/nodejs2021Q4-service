@@ -7,8 +7,8 @@ import { ConnectionOptions } from 'typeorm';
 
 const ormConfig: ConnectionOptions = {
     type: 'postgres',
-    host: 'localhost',
-    port: Number(config.POSTGRES_PORT),
+    host: config.POSTGRES_HOST,
+    port: Number(config.POSTGRES_CONTAINERPORT),
     username: config.POSTGRES_USER,
     password: config.POSTGRES_PASSWORD,
     database: config.POSTGRES_DB,

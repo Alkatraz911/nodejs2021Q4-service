@@ -1,4 +1,6 @@
 node_modules
 logs
 pg_data
+migrations
+
 

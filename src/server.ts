@@ -1,7 +1,7 @@
 import "reflect-metadata";
-import { connectDB } from './loaders/postgresLoader';
 import fastify, { FastifyInstance } from 'fastify';
 import fs from 'fs';
+import { connectDB } from './loaders/postgresLoader';
 import { config } from './common/config';
 import { logger } from './logger';
 import { customErrorHandler } from './errorHandler';

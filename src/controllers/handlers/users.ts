@@ -1,7 +1,7 @@
 
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { Iuser } from '../../db/data';
-import { userRepository } from '../../resources/users/user.repository';
+import { UserRepository, userRepository } from '../../resources/users/user.repository';
 // import { ServerError } from '../../errorHandler';
 
 
@@ -48,7 +48,7 @@ async function getUser(req: CustomRequest, reply: FastifyReply) {
     }
     return reply
         .status(200)
-        .send(userRepository.toResponse(user));
+        .send(UserRepository.toResponse(user));
 };
 
 /**
@@ -63,12 +63,12 @@ async function addUser(req: CustomRequest, reply: FastifyReply) {
     if (user) {
         return reply
             .status(201)
-            .send(userRepository.toResponse(user));
-    } else {
+            .send(UserRepository.toResponse(user));
+    } 
         return reply
         .status(404)
         .send('Erorr');
-    }
+    
 }
 
 /**
@@ -84,7 +84,7 @@ async function editUser(req: CustomRequest, reply: FastifyReply) {
     if (user) {
         return reply
             .status(200)
-            .send(userRepository.toResponse(user));
+            .send(UserRepository.toResponse(user));
     }
     return reply
         .status(404)
@@ -102,15 +102,15 @@ async function deleteUser(req: CustomRequest, reply: FastifyReply) {
     const { id } = req.params;
     if (id) {
         await userRepository.deleteUser(id);
-        //Need to add unasign method from taskRepo
+        // Need to add unasign method from taskRepo
         return reply
             .status(204)
             .send();
-    } else {
+    } 
         return reply
         .status(404)
         .send('Erorr');
-    }
+    
 
 }
 

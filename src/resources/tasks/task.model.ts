@@ -1,7 +1,7 @@
-import { Itask } from '../../db/data';
 import {
   Entity, PrimaryGeneratedColumn, Column
 } from 'typeorm';
+import { Itask } from '../../db/data';
 
 /**
  * Creates new task.

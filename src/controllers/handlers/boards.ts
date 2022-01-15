@@ -44,11 +44,11 @@ const getBoard = async (req: CustomRequest, reply: FastifyReply) => {
         return reply.status(404).send({
             errorMsg: `board with id ${id} not found`,
         });
-    } else {
+    } 
         return reply
             .status(200)
             .send(board);
-    }
+    
 
 
 
@@ -108,15 +108,15 @@ const deleteBoard = async (req: CustomRequest, reply: FastifyReply) => {
 
     if (id) {
         await boardRepository.deleteBoard(id);
-        //Need to add deleting tasks method from taskRepo
+        // Need to add deleting tasks method from taskRepo
         return reply
             .status(204)
             .send();
-    } else {
+    } 
         return reply
             .status(404)
             .send('Erorr');
-    }
+    
 
 
 

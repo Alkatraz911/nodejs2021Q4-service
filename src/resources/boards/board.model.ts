@@ -1,8 +1,8 @@
 
-import { Iboard } from '../../db/data';
 import {
   Entity, PrimaryGeneratedColumn, Column
 } from 'typeorm';
+import { Iboard } from '../../db/data';
 
 /**
  * Creates new board.

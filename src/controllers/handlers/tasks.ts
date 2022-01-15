@@ -63,11 +63,11 @@ const addTask = async (req: CustomRequest, reply: FastifyReply) => {
         return reply
             .status(201)
             .send(task);
-    } else {
+    } 
         return reply
             .status(404)
             .send('Erorr');
-    }
+    
 
 }
 

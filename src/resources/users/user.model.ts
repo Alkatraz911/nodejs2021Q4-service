@@ -1,8 +1,8 @@
 
-import { Iuser } from '../../db/data';
 import {
   Entity, PrimaryGeneratedColumn, Column
 } from 'typeorm';
+import { Iuser } from '../../db/data';
 
 /**
  * Creates new user.

@@ -23,12 +23,12 @@ class BoardRepository extends Repository<Board> {
             .values(values)
             .execute();
 
-        return await this
-            .getBoard(identifiers[0]?.['id']);
+        return  this
+            .getBoard(identifiers[0]?.id);
     }
 
-    async getBoard(id: string) {
-        return await this.createQueryBuilder('board')
+    getBoard(id: string) {
+        return  this.createQueryBuilder('board')
             .where('board.id = :id', { id })
             .getOne();
     }
@@ -46,7 +46,7 @@ class BoardRepository extends Repository<Board> {
 
     async deleteBoard(id: string) {
         await taskRepository.deleteTasksForBoard(id);
-        return await this.createQueryBuilder()
+        return  this.createQueryBuilder()
             .delete()
             .from(Board)
             .where('id = :id', { id })

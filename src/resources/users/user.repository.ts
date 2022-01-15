@@ -5,7 +5,7 @@ import { taskRepository } from '../tasks/task.repository';
 
 
 @EntityRepository(User)
-class UserRepository extends Repository<User> {
+export class UserRepository extends Repository<User> {
 
   getAllUsers() {
     return  this
@@ -24,10 +24,10 @@ class UserRepository extends Repository<User> {
       .values(values)
       .execute();
 
-    return await this.getUser(identifiers[0]?.['id']);
+    return  this.getUser(identifiers[0]?.id);
   }
 
-  async getUser(id: string) {
+  getUser(id: string) {
     return this.createQueryBuilder('user')
       .where('user.id = :id', { id })
       .getOne();
@@ -45,14 +45,14 @@ class UserRepository extends Repository<User> {
 
   async deleteUser(id: string) {
     await taskRepository.unAssignUser(id)
-    return await this.createQueryBuilder()
+    return  this.createQueryBuilder()
       .delete()
       .from(User)
       .where('id = :id', { id })
       .execute();
   }
 
-  toResponse({id, name, login}: Iuser) {
+  static toResponse({id, name, login}: Iuser) {
     return {id, name, login}
   }
 }

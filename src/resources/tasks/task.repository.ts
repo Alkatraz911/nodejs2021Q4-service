@@ -18,7 +18,7 @@ class TaskRepository extends Repository<Task> {
       .values([{ ...task, boardId }])
       .execute();
 
-    return this.getTask(generatedMaps?.[0]?.['boardId'], generatedMaps?.[0]?.['id']);
+    return this.getTask(generatedMaps?.[0]?.boardId, generatedMaps?.[0]?.id);
   }
 
   getTask(boardId: string, taskId: string) {

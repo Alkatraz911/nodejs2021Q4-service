@@ -64,7 +64,7 @@ If your will change any file in src folder at host machine it will be automatica
 
 ## Troublesshooting with migrations
 ERROR:  "relation "users" already exists". - You need to clean up folder with migrations at your host. Path .../folder with project/src/migrations.
-Message: "No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command". - 
+ Message: "No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command". - 
 It means that database contains all nessesary tables and no need to run migrations, but if you want to check migrations you need to connect to database at docker container with any software like DBeaver or PGadmin and delete all tables in schema. Adress for connection - localhost:5432. All nessesary for connection credits you can find in .env file. 
 
 Discord for qwestions - BaltazaVR  Alkatraz911#8711 

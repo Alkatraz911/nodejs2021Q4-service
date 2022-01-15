@@ -17,17 +17,17 @@ git clone {repository URL}
 npm install
 ```
 
-## Running application
-
+## Running application at host
+To run application at your local machine first you need to install postgress database. 
 ```
-npm start
+npm run dev
 ```
 
 After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 
-## Running docker container
+## Running application at docker container
 
 First you need to install docker at your computer. 
 windows - https://docs.docker.com/desktop/windows/install/
@@ -61,4 +61,12 @@ Windows - \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes
 Mac,Linux - /var/lib/docker/volumes/
 or in CLI tool on Mac or Windows PC. 
 If your will change any file in src folder at host machine it will be automatically changed at container.
+
+## Troublesshooting with migrations
+ERROR:  "relation "users" already exists". - You need to clean up folder with migrations at your host. Path .../folder with project/src/migrations.
+Message: "No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command". - 
+It means that database contains all nessesary tables and no need to run migrations, but if you want to check migrations you need to connect to database at docker container with any software like DBeaver or PGadmin and delete all tables in schema. Adress for connection - localhost:5432. All nessesary for connection credits you can find in .env file. 
+
+Discord for qwestions - BaltazaVR  Alkatraz911#8711 
+
 

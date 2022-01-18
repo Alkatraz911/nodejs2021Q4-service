@@ -62,7 +62,7 @@ Mac,Linux - /var/lib/docker/volumes/
 or in CLI tool on Mac or Windows PC. 
 If your will change any file in src folder at host machine it will be automatically changed at container.
 
-## Troublesshooting with migrations
+## Troubleshooting with migrations
 ERROR:  "relation "users" already exists". - You need to clean up folder with migrations at your host. Path .../folder with project/src/migrations.
 
 Message: "No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command". - 

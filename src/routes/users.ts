@@ -35,11 +35,12 @@ const editUserOpts: CustomRoute = {
 
 const deleteUserOpts: CustomRoute = {
     schema: deleteUserSchema,
-    handler: deleteUser
+    handler: deleteUser,
+
 }
 
 const usersRoutes:FastifyPluginCallback =  (server, _option, done) => {
-    server.get('/users', getUsersOpts);
+    server.get('/users',  getUsersOpts);
     server.get('/users/:id', getUserOpts);
     server.post('/users', postUserOpts);
     server.put('/users/:id', editUserOpts);

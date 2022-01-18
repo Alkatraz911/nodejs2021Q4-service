@@ -10,7 +10,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "ts-node ./src/server.ts",
-    "dev": "npm run migration:generate && npm run migration:run && nodemon",
+    "dev": "npm run migration:generate && npm run migration:run && nodemon -L",
     "build": "tsc src/server.ts",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
@@ -51,6 +51,8 @@
     "eslint-plugin-tsdoc": "^0.2.14",
     "fastify": "^3.24.1",
     "fastify-plugin": "^3.0.0",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.1",
     "pino": "^7.6.1",
     "pino-pretty": "^7.3.0",
@@ -62,6 +64,7 @@
     "yamljs": "0.3.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^16.11.19",
     "@types/uuid": "^8.3.3",
     "chai": "^4.3.4",

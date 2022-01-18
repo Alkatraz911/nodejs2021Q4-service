@@ -21,14 +21,17 @@ const initDB = async () => {
 
 try {
     initDB().then(async () => {
+        const { authRoute } = (await import ('./routes/auth')); 
         const  { usersRoutes } = (await import ('./routes/users'));
         const { boardsRoutes } = (await import('./routes/boards'));
         const { tasksRoutes } = (await import('./routes/tasks'));
+
     
-    
+        server.register(authRoute);
         server.register(usersRoutes);
         server.register(boardsRoutes);
         server.register(tasksRoutes);
+
     
         server.addHook('preHandler', (req, _reply, done) => {
             if (req.body) {
@@ -40,6 +43,7 @@ try {
         server.setErrorHandler(customErrorHandler);
     
         server.listen(PORT, '0.0.0.0');
+
         console.log(`Server started at port ${PORT}`);
         console.log(`Log level : ${config.LOG_LEVEL}`);
     

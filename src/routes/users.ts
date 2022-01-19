@@ -2,6 +2,7 @@ import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
 import { DefaultRoute } from 'fastify/types/route.d';
 import { CustomRequest , getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
 import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema } from '../controllers/schemas/users';
+import { validateJwt } from '../services/jwt'
 
 
 
@@ -10,32 +11,39 @@ import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUs
 interface CustomRoute {
     schema: FastifySchema;
     handler: DefaultRoute<CustomRequest, FastifyReply>;
+    preValidation: DefaultRoute<CustomRequest, FastifyReply>;
 }
 
 
 const getUsersOpts: CustomRoute = {
     schema: getUsersSchema,
-    handler: getUsers
+    handler: getUsers,
+    preValidation:validateJwt,
 }
+
 
 const getUserOpts: CustomRoute = {
     schema: getUserSchema,
-    handler: getUser
+    handler: getUser,
+    preValidation:validateJwt,
 }
 
 const postUserOpts: CustomRoute = {
     schema: postUserSchema,
-    handler: addUser
+    handler: addUser,
+    preValidation:validateJwt,
 }
 
 const editUserOpts: CustomRoute = {
     schema: editUserSchema,
-    handler: editUser
+    handler: editUser,
+    preValidation:validateJwt,
 }
 
 const deleteUserOpts: CustomRoute = {
     schema: deleteUserSchema,
     handler: deleteUser,
+    preValidation:validateJwt,
 
 }
 

@@ -33,7 +33,7 @@ const user :Iuser = {
 
 const body :Iuser = {
     type: "object",
-    required: ["name","login", "password"],
+    required: ["login", "password"],
     properties: {
         name: typeString,
         login: typeString,

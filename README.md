@@ -68,6 +68,18 @@ ERROR:  "relation "users" already exists". - You need to clean up folder with mi
 Message: "No changes in database schema were found - cannot generate a migration. To create a new empty migration use "typeorm migration:create" command". - 
 It means that database contains all nessesary tables and no need to run migrations, but if you want to check migrations you need to connect to database at docker container with any software like DBeaver or PGadmin and delete all tables in schema. Adress for connection - localhost:5432. All nessesary for connection credits you can find in .env file. 
 
+## Authentication & JWT
+
+To check task you need to run docker containers with next command
+```
+docker compose up /docker compose up -d(deamon mode)
+``` 
+When docker containers will be ready you can run tests 
+```
+npm run test:auth
+``` 
+Routes /login, /, /doc available without auth
+
 Discord for qwestions - BaltazaVR  Alkatraz911#8711 
 
 

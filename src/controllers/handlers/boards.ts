@@ -1,5 +1,5 @@
 
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { Iboard } from '../../db/data';
 import { boardRepository } from '../../resources/boards/board.repository';
 

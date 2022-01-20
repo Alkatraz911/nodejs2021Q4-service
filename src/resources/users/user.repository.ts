@@ -1,8 +1,8 @@
 import { EntityRepository, Repository, getConnection } from 'typeorm';
-import {hash, genSalt} from 'bcrypt';
 import { User } from './user.model';
 import { Iuser } from '../../db/data';
 import { taskRepository } from '../tasks/task.repository';
+import {hash, genSalt} from 'bcrypt';
 
 
 @EntityRepository(User)

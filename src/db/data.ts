@@ -2,7 +2,7 @@
 
 interface Iuser {
     id?: string;
-    name: string;
+    name?: string;
     login: string;
     password: string;
 }

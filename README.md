@@ -78,7 +78,8 @@ When docker containers will be ready you can run tests
 ```
 npm run test:auth
 ``` 
-Routes /login, /, /doc available without auth
+Routes /login, /, /doc available without auth. 
+
 App use bcrypt to store hashes of passwords in db. You can connect to db at localhos:5432 and check it.
 Default user login: admin password: admin/ 
 

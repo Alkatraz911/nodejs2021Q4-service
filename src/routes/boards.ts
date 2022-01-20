@@ -2,45 +2,38 @@
 import { DefaultRoute } from 'fastify/types/route.d';
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
 import { getBoardsSchema, getBoardSchema, postBoardSchema, editBoardSchema, deleteBoardSchema } from '../controllers/schemas/boards';
-import { getBoards, getBoard, addBoard, editBoard, deleteBoard , CustomRequest} from '../controllers/handlers/boards';
-import { validateJwt } from '../services/jwt'
- 
+import{ getBoards, getBoard, addBoard, editBoard, deleteBoard , CustomRequest} from '../controllers/handlers/boards';
+
 
 
 interface CustomRoute {
     schema: FastifySchema;
     handler: DefaultRoute<CustomRequest, FastifyReply>;
-    preValidation: DefaultRoute<CustomRequest, FastifyReply>;
 }
 
 const getBoardsOpts:CustomRoute = {
     schema: getBoardsSchema,
-    handler: getBoards,
-    preValidation: validateJwt,
+    handler: getBoards
 }
 
 const getBoardOpts:CustomRoute = {
     schema: getBoardSchema,
-    handler: getBoard,
-    preValidation: validateJwt,
+    handler: getBoard
 }
 
 const postBoardOpts:CustomRoute = {
     schema: postBoardSchema,
-    handler: addBoard,
-    preValidation: validateJwt,
+    handler: addBoard
 }
 
 const editBoardOpts:CustomRoute = {
     schema: editBoardSchema,
-    handler: editBoard,
-    preValidation: validateJwt,
+    handler: editBoard
 }
 
 const deleteBoardOpts:CustomRoute = {
     schema: deleteBoardSchema,
-    handler: deleteBoard,
-    preValidation: validateJwt,
+    handler: deleteBoard
 }
 
 const boardsRoutes:FastifyPluginCallback = (server, _option, done) => {

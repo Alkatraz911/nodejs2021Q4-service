@@ -9,27 +9,23 @@ import { taskRepository } from '../tasks/task.repository';
 export class UserRepository extends Repository<User> {
 
   getAllUsers() {
-    return this
-      .createQueryBuilder()
-      .getMany();
+    return  this
+    .createQueryBuilder()
+    .getMany();
   }
 
   async createUser(user: Partial<Iuser>) {
-    if (user.password) {
-      const passHash = await hash(user.password, await genSalt(10));
-      const values = {
-        ...user
-      };
-      values.password = passHash
-      const { identifiers } = await this.createQueryBuilder()
-        .insert()
-        .into(User)
-        .values(values)
-        .execute();
+    const values = {
+      ...user
+    };
 
-      return this.getUser(identifiers[0]?.id);
-    } 
-    return null
+    const { identifiers } = await this.createQueryBuilder()
+      .insert()
+      .into(User)
+      .values(values)
+      .execute();
+
+    return  this.getUser(identifiers[0]?.id);
   }
 
   getUser(id: string) {
@@ -50,15 +46,15 @@ export class UserRepository extends Repository<User> {
 
   async deleteUser(id: string) {
     await taskRepository.unAssignUser(id)
-    return this.createQueryBuilder()
+    return  this.createQueryBuilder()
       .delete()
       .from(User)
       .where('id = :id', { id })
       .execute();
   }
 
-  static toResponse({ id, name, login }: Iuser) {
-    return { id, name, login }
+  static toResponse({id, name, login}: Iuser) {
+    return {id, name, login}
   }
 }
 

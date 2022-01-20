@@ -3,11 +3,15 @@ import {
 	StatusCodes,
 	getReasonPhrase
 } from 'http-status-codes';
+<<<<<<< HEAD
 import {compare} from 'bcrypt'
 import { CustomRequest } from './users';
 import { userRepository } from '../../resources/users/user.repository';
 import { getJwt } from '../../services/jwt'
 
+=======
+import { getJwt } from '../../services/jwt'
+>>>>>>> parent of 354ebf6 (fixed tests passing)
 
 async function loginUser(req: CustomRequest, reply: FastifyReply) {
     
@@ -18,11 +22,16 @@ async function loginUser(req: CustomRequest, reply: FastifyReply) {
         }
         const user =  (await userRepository
             .getAllUsers())
+<<<<<<< HEAD
             .find(el => el.login === login)
+=======
+            .find(user => user.login === login && user.password === password)
+>>>>>>> parent of 354ebf6 (fixed tests passing)
         if (!user) {
             return reply
             .status(StatusCodes.FORBIDDEN)
             .send(getReasonPhrase(StatusCodes.FORBIDDEN));
+<<<<<<< HEAD
         } 
             const isValid = await compare(password,user.password);
             if(isValid) {
@@ -37,6 +46,13 @@ async function loginUser(req: CustomRequest, reply: FastifyReply) {
             
         
 
+=======
+        }
+        return reply
+            .header('Content-Type','json')
+            .status(StatusCodes.OK)
+            .send({token: await getJwt(user)});
+>>>>>>> parent of 354ebf6 (fixed tests passing)
 };
 
 

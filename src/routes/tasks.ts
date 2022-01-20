@@ -2,46 +2,36 @@ import { DefaultRoute } from 'fastify/types/route.d';
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
 import { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema } from '../controllers/schemas/tasks';
 import { getTasks, getTask, addTask, editTask, deleteTask , CustomRequest } from '../controllers/handlers/tasks';
-import { validateJwt } from '../services/jwt'
 
 
 interface CustomRoute {
     schema: FastifySchema;
     handler: DefaultRoute<CustomRequest, FastifyReply>;
-    preValidation: DefaultRoute<CustomRequest, FastifyReply>;
 }
 
 const getTasksOpts:CustomRoute = {
     schema: getTasksSchema,
-    handler: getTasks,
-    preValidation: validateJwt,
+    handler: getTasks
 }
 
 const getTaskOpts:CustomRoute = {
     schema: getTaskSchema,
-    handler: getTask,
-    preValidation: validateJwt,
+    handler: getTask
 }
 
 const postTaskOpts:CustomRoute = {
     schema: postTaskSchema,
-    handler: addTask,
-    preValidation: validateJwt,
-
+    handler: addTask
 }
 
 const editTaskOpts:CustomRoute = {
     schema: editTaskSchema,
-    handler: editTask,
-    preValidation: validateJwt,
-
+    handler: editTask
 }
 
 const deleteTaskOpts:CustomRoute = {
     schema: deleteTaskSchema,
-    handler: deleteTask,
-    preValidation: validateJwt,
-
+    handler: deleteTask
 }
 
 const tasksRoutes:FastifyPluginCallback = (server, _option, done) => {

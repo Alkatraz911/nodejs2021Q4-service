@@ -67,8 +67,6 @@ const addTask = async (req: CustomRequest, reply: FastifyReply) => {
         return reply
             .status(404)
             .send('Erorr');
-    
-
 }
 
 /**
@@ -111,9 +109,6 @@ const deleteTask = async (req: CustomRequest, reply: FastifyReply) => {
     return reply
         .status(404)
         .send('Not found');
-
-
-
 }
 
 

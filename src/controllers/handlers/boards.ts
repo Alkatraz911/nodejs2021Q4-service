@@ -1,5 +1,4 @@
-
-import { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { Iboard } from '../../db/data';
 import { boardRepository } from '../../resources/boards/board.repository';
 
@@ -62,15 +61,15 @@ const getBoard = async (req: CustomRequest, reply: FastifyReply) => {
  */
 
 const addBoard = async (req: CustomRequest, reply: FastifyReply) => {
-    const board = await boardRepository.createBoard(req.body);
-    if (board) {
+        const board = await boardRepository.createBoard(req.body);
+        if (board) {
+            return reply
+                .status(201)
+                .send(board);
+        }
         return reply
-            .status(201)
-            .send(board);
-    }
-    return reply
-        .status(404)
-        .send('Erorr');
+            .status(404)
+            .send('Erorr');
 }
 
 /**

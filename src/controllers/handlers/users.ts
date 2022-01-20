@@ -1,4 +1,3 @@
-
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { Iuser } from '../../db/data';
 import { UserRepository, userRepository } from '../../resources/users/user.repository';
@@ -68,7 +67,6 @@ async function addUser(req: CustomRequest, reply: FastifyReply) {
         return reply
         .status(404)
         .send('Erorr');
-    
 }
 
 /**
@@ -110,8 +108,6 @@ async function deleteUser(req: CustomRequest, reply: FastifyReply) {
         return reply
         .status(404)
         .send('Erorr');
-    
-
 }
 
 

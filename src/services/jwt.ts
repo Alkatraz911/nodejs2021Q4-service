@@ -1,16 +1,16 @@
 import  jwt from 'jsonwebtoken';
-import { Iuser } from '../db/data';
-import { config } from '../common/config';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import {
 	StatusCodes,
 	getReasonPhrase
 } from 'http-status-codes';
+import { Iuser } from '../db/data';
+import { config } from '../common/config';
 
 
 const getJwt = (user:Iuser) => {
     const {id, login} = user;
-     return  jwt.sign({id: id, login: login},config.JWT_SECRET, {expiresIn: '1d'});
+     return  jwt.sign({id, login},config.JWT_SECRET, {expiresIn: '1d'});
 }
 
 const validateJwt = async (req:FastifyRequest, reply:FastifyReply) => {
@@ -24,7 +24,7 @@ const validateJwt = async (req:FastifyRequest, reply:FastifyReply) => {
                 .status(StatusCodes.UNAUTHORIZED)
                 .send(getReasonPhrase(StatusCodes.UNAUTHORIZED))
             } else {
-                jwt.verify(token, config.JWT_SECRET, (err,decoded) => {
+                jwt.verify(token, config.JWT_SECRET, (err) => {
                     if (err) {
                         reply
                         .status(StatusCodes.UNAUTHORIZED)
@@ -32,7 +32,7 @@ const validateJwt = async (req:FastifyRequest, reply:FastifyReply) => {
                     } else {
                         reply
                         .status(StatusCodes.OK)
-                        return
+                        
                     }
                 })
             }

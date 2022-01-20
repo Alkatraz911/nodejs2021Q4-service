@@ -1,47 +1,61 @@
-import { DefaultRoute } from 'fastify/types/route.d';
 import  { FastifySchema,  FastifyReply, FastifyPluginCallback} from 'fastify';
-import { getTasksSchema, getTaskSchema, postTaskSchema, editTaskSchema, deleteTaskSchema } from '../controllers/schemas/tasks';
-import { getTasks, getTask, addTask, editTask, deleteTask , CustomRequest } from '../controllers/handlers/tasks';
+import { DefaultRoute } from 'fastify/types/route.d';
+import { CustomRequest , getUsers, getUser, addUser, editUser, deleteUser } from '../controllers/handlers/users';
+import { getUsersSchema, getUserSchema, postUserSchema, editUserSchema, deleteUserSchema } from '../controllers/schemas/users';
+import { validateJwt } from '../services/jwt'
+
+
+
 
 
 interface CustomRoute {
     schema: FastifySchema;
     handler: DefaultRoute<CustomRequest, FastifyReply>;
+    preValidation: DefaultRoute<CustomRequest, FastifyReply>;
 }
 
-const getTasksOpts:CustomRoute = {
-    schema: getTasksSchema,
-    handler: getTasks
+
+const getUsersOpts: CustomRoute = {
+    schema: getUsersSchema,
+    handler: getUsers,
+    preValidation:validateJwt,
 }
 
-const getTaskOpts:CustomRoute = {
-    schema: getTaskSchema,
-    handler: getTask
+
+const getUserOpts: CustomRoute = {
+    schema: getUserSchema,
+    handler: getUser,
+    preValidation:validateJwt,
 }
 
-const postTaskOpts:CustomRoute = {
-    schema: postTaskSchema,
-    handler: addTask
+const postUserOpts: CustomRoute = {
+    schema: postUserSchema,
+    handler: addUser,
+    preValidation:validateJwt,
 }
 
-const editTaskOpts:CustomRoute = {
-    schema: editTaskSchema,
-    handler: editTask
+const editUserOpts: CustomRoute = {
+    schema: editUserSchema,
+    handler: editUser,
+    preValidation:validateJwt,
 }
 
-const deleteTaskOpts:CustomRoute = {
-    schema: deleteTaskSchema,
-    handler: deleteTask
+const deleteUserOpts: CustomRoute = {
+    schema: deleteUserSchema,
+    handler: deleteUser,
+    preValidation:validateJwt,
+
 }
 
-const tasksRoutes:FastifyPluginCallback = (server, _option, done) => {
-    server.get('/boards/:boardId/tasks', getTasksOpts);
-    server.get('/boards/:boardId/tasks/:id', getTaskOpts);
-    server.post('/boards/:boardId/tasks', postTaskOpts);
-    server.put('/boards/:boardId/tasks/:id', editTaskOpts);
-    server.delete('/boards/:boardId/tasks/:id', deleteTaskOpts);
+const usersRoutes:FastifyPluginCallback =  (server, _option, done) => {
+    server.get('/users',  getUsersOpts);
+    server.get('/users/:id', getUserOpts);
+    server.post('/users', postUserOpts);
+    server.put('/users/:id', editUserOpts);
+    server.delete('/users/:id', deleteUserOpts);
     done();
 };
 
 
-export { tasksRoutes }
+
+export { usersRoutes }

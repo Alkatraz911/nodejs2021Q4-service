@@ -46,7 +46,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.0.0",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",

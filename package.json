@@ -9,10 +9,15 @@
   "description": "REST service starter for RS School",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "ts-node ./src/server.ts",
+    "dev": "npm run migration:generate && npm run migration:run && nodemon -L",
+    "build": "tsc src/server.ts",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
-    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace"
+    "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js --config ./src/common/ormconfig.ts",
+    "migration:generate": "npm run typeorm migration:generate -- -n MigrationFile",
+    "migration:run": "npm run typeorm -- migration:run"
   },
   "keywords": [
     "rs",
@@ -33,39 +38,50 @@
       "./test/setup.js"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.js": [
       "npm run lint"
     ]
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "bcrypt": "^5.0.0",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
-    "express": "4.17.1",
-    "swagger-ui-express": "4.1.6",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "fastify": "^3.24.1",
+    "fastify-plugin": "^3.0.0",
+    "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
+    "pino": "^7.6.1",
+    "pino-pretty": "^7.3.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.4.0",
+    "typeorm": "^0.2.41",
+    "typescript": "^4.5.4",
     "uuid": "8.3.2",
     "yamljs": "0.3.0"
   },
   "devDependencies": {
-    "chai": "4.3.4",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^16.11.19",
+    "@types/uuid": "^8.3.3",
+    "chai": "^4.3.4",
     "debug": "4.3.2",
-    "dirty-chai": "2.0.1",
-    "eslint": "8.2.0",
+    "dirty-chai": "^2.0.1",
+    "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.0.0",
-    "husky": "^4.3.8",
-    "jest": "27.3.1",
+    "jest": "^27.4.7",
     "lint-staged": "12.0.3",
-    "nodemon": "2.0.15",
-    "prettier": "2.4.1",
-    "supertest": "6.1.6"
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "supertest": "^6.1.6"
   }
 }

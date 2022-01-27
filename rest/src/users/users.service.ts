@@ -6,13 +6,15 @@ import { hash, genSalt } from 'bcrypt';
 import { CreateUserDto } from "./dto/createUserDto";
 import { UpdateUserDto } from "./dto/updateUserDto";
 
+
 @Injectable()
 export class UsersService {
 
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
-    ) { }
+        
+    ){}
 
     getUsers() {
         return this.userRepository
@@ -54,8 +56,8 @@ export class UsersService {
         return this.getUser(id);
     }
 
-    deleteUser(id: string) {
-        // await taskRepository.unAssignUser(id)
+    async deleteUser(id: string) {
+        
         return this.userRepository.createQueryBuilder()
             .delete()
             .from(User)

@@ -1,14 +1,16 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
+import { TasksService } from "../tasks/tasks.service";
 import { UpdateUserDto } from './dto/updateUserDto';
 
-@Controller('/users')
+@Controller('users')
 export class UsersController {
 
-    constructor(private userService: UsersService) {
-
-    }
+    constructor(
+        private  userService: UsersService,
+        private  tasksService: TasksService,
+    ){}
 
     @Get()
     async getUsers() {
@@ -20,9 +22,9 @@ export class UsersController {
     async createUser(@Body() dto: CreateUserDto) {
         const result = await this.userService.createUser(dto);
         if (result) {
-            return this.userService.toResponse(result)
+            return this.userService.toResponse(result);
         } else {
-            return null
+            return null;
         }
     }
 
@@ -47,10 +49,9 @@ export class UsersController {
     }
 
     @Delete(':id')
-    async deleteUserById(@Param('id') id: string) {
+    async deleteUser(@Param('id') id: string) {
+        await this.tasksService.unSignUser(id);
         await this.userService.deleteUser(id);
-
-        // this.taskService.unAssignUser(id);
     }
 
 }

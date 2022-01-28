@@ -1,12 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { AuthGuard } from './../auth/auth.guard';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/createUserDto';
 import { UsersService } from './users.service';
 import { TasksService } from "../tasks/tasks.service";
 import { UpdateUserDto } from './dto/updateUserDto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { User } from './user.model';
 
-
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
 
@@ -17,6 +18,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'get users method'})
     @ApiResponse({status: 200, type: [User]})
+    @UseGuards(AuthGuard)
     @Get()
     async getUsers() {
         const users = await this.userService.getUsers();
@@ -30,6 +32,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'user create method'})
     @ApiResponse({status: 200, type: User})
+    @UseGuards(AuthGuard)
     @Post()
     async createUser(@Body() dto: CreateUserDto) {
         const result = await this.userService.createUser(dto);
@@ -42,6 +45,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'get user method'})
     @ApiResponse({status: 200, type: User})
+    @UseGuards(AuthGuard)
     @Get(':id')
     async getUser(@Param('id') id: string) {
         const result = await this.userService.getUser(id);
@@ -54,6 +58,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'update user method'})
     @ApiResponse({status: 200, type: User})
+    @UseGuards(AuthGuard)
     @Put(':id')
     async updateUser(@Param('id') id: string, @Body() dto: UpdateUserDto) {
         const result = await this.userService.updateUser(id, dto);
@@ -66,6 +71,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'delete user method'})
     @ApiResponse({status: 200})
+    @UseGuards(AuthGuard)
     @Delete(':id')
     async deleteUser(@Param('id') id: string) {
         await this.tasksService.unSignUser(id);

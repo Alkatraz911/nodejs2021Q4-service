@@ -2,6 +2,8 @@ import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpSta
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/createTaskDto';
 import { UpdateTaskDto } from './dto/updateTaskDto';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { Task } from './task.model';
 
 
 @Controller('boards')
@@ -10,26 +12,32 @@ export class TasksController {
 
     }
 
+    @ApiOperation({summary: 'get tasks method'})
+    @ApiResponse({status: 200, type: [Task]})
     @Get(':boardId/tasks')
     async getTasks(@Param('boardId') boardId: string) {
         const result = await this.tasksService.getTasks(boardId)
         if(result) {
             return result;
         } else {
-            return null;
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
         }
     }
 
+    @ApiOperation({summary: 'create task method'})
+    @ApiResponse({status: 200, type: Task})
     @Post(':boardId/tasks')
     async createTask (@Param('boardId') boardId: string, @Body() dto: CreateTaskDto) {
         const result = await this.tasksService.createTask(boardId,dto);
         if (result) {
             return result;
         } else {
-            return null;
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
         }
     }
 
+    @ApiOperation({summary: 'get task method'})
+    @ApiResponse({status: 200, type: Task})
     @Get(':boardId/tasks/:id')
     async getTask(@Param('boardId') boardId: string, @Param('id') id: string) {
         const result = await this.tasksService.getTask(boardId,id);
@@ -40,23 +48,27 @@ export class TasksController {
         }
     }
 
+    @ApiOperation({summary: 'edit task method'})
+    @ApiResponse({status: 200, type: Task})
     @Put(':boardId/tasks/:id')
     async editTask(@Param('boardId') boardId: string, @Param('id') id: string, @Body() dto: UpdateTaskDto) {
         const result = await this.tasksService.editTask(boardId,id,dto);
         if (result) {
             return result;
         } else {
-            return null;
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
         }
     }
 
+    @ApiOperation({summary: 'delete task method'})
+    @ApiResponse({status: 200})
     @Delete(':boardId/tasks/:id') 
     async deleteTask(@Param('boardId') boardId: string, @Param('id') id: string) {
         const result = await this.tasksService.deleteTask(boardId,id);
         if (result) {
             return result;
         } else {
-            return null;
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
         }
     }
 

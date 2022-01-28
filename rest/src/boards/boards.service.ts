@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from './board.model';
 import { Repository } from 'typeorm';
-import { BoardDto } from './dto/boardDto';
+import { CreateBoardDto } from './dto/CreateBoardDto';
+import { UpdateBoardDto } from './dto/updateBoardDto';
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class BoardsService {
             .getMany();
     }
 
-    async createBoard(board: BoardDto) {
+    async createBoard(board: CreateBoardDto) {
         const values = {
             ...board
         };
@@ -39,7 +40,7 @@ export class BoardsService {
             .getOne();
     }
 
-    async editBoard(id: string, updatedBoard: BoardDto) {
+    async editBoard(id: string, updatedBoard: UpdateBoardDto) {
         await this.boardsRepository.createQueryBuilder()
             .update(Board)
             .set(updatedBoard)

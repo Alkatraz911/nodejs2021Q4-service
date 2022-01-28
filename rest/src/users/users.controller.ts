@@ -50,8 +50,9 @@ export class UsersController {
 
     @Delete(':id')
     async deleteUser(@Param('id') id: string) {
-        await this.tasksService.unSignUser(id);
         await this.userService.deleteUser(id);
+        await this.tasksService.unSignUser(id);
+        return 
     }
 
 }

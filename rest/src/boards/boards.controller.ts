@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { TasksService } from '../tasks/tasks.service'
 import { BoardsService } from './boards.service';
-import { BoardDto } from './dto/boardDto';
+import { CreateBoardDto } from './dto/CreateBoardDto';
+import { UpdateBoardDto } from './dto/updateBoardDto';
 
 @Controller('boards')
 export class BoardsController {
@@ -26,12 +27,12 @@ export class BoardsController {
         if (result) {
             return result;
         } else {
-            return null;
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
         }
     }
     
     @Post()
-    async createBoard(@Body() dto:BoardDto) {
+    async createBoard(@Body() dto:CreateBoardDto) {
         const result = await this.boardsService.createBoard(dto);
         if (result) {
             return result;
@@ -40,8 +41,8 @@ export class BoardsController {
         }
     }
 
-    @Put('id')
-    async editBoard(@Param('id') id:string,@Body() dto:BoardDto) {
+    @Put(':id')
+    async editBoard(@Param('id') id:string,@Body() dto:UpdateBoardDto) {
         const result = await this.boardsService.editBoard(id,dto);
         if (result) {
             return result;
@@ -50,7 +51,7 @@ export class BoardsController {
         }
     }
 
-    @Delete('id')
+    @Delete(':id')
     async deleteBoard(@Param('id') id:string) {
         await this.tasksService.deleteTasksForBoard(id);
         await this.boardsService.deleteBoard(id);

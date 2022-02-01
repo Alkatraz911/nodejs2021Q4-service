@@ -22,7 +22,7 @@ export class FileController {
 
   @ApiOperation({ summary: 'upload file' })
   @ApiResponse({ status: 201 })
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   @Post()
   uploadFile(@UploadedFile() file) {

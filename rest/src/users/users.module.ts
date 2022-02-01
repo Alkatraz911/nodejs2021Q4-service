@@ -21,4 +21,6 @@ import { TasksModule } from '../tasks/tasks.module';
     UsersService
   ],
 })
-export class UsersModule {}
+
+export class UsersModule {  
+}

@@ -6,7 +6,7 @@ import { BoardsModule } from './boards/boards.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
 import { FileModule } from './file/file.module';
-import { ServeStaticModule } from '@nestjs/serve-static'
+// import { ServeStaticModule } from '@nestjs/serve-static'
 
 
 @Module({
@@ -25,9 +25,9 @@ import { ServeStaticModule } from '@nestjs/serve-static'
       synchronize: true,
       autoLoadEntities: true
     }),
-    ServeStaticModule.forRoot({
-      rootPath: `${process.cwd()}/src/static`
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: `${process.cwd()}/src/static`
+    // }),
     UsersModule,
     BoardsModule,
     TasksModule,
@@ -35,4 +35,5 @@ import { ServeStaticModule } from '@nestjs/serve-static'
     FileModule
   ],
 })
+
 export class AppModule { }

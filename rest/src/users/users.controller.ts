@@ -14,7 +14,16 @@ export class UsersController {
     constructor(
         private userService: UsersService,
         private tasksService: TasksService,
-    ) { }
+    ) { 
+        (async ()=>{
+            const admin = (await this.userService.getUsers()).find(user => user.login === 'admin')
+            if(admin){
+                return
+            } else {
+                this.userService.createUser({login:'admin', password: 'admin', name: 'admin'})
+            }
+        })()
+    }
 
     @ApiOperation({summary: 'get users method'})
     @ApiResponse({status: 200, type: [User]})

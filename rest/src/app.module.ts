@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { BoardsModule } from './boards/boards.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
+import { FileModule } from './file/file.module';
+import { ServeStaticModule } from '@nestjs/serve-static'
+
 
 @Module({
   imports: [
@@ -22,10 +25,14 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
       autoLoadEntities: true
     }),
+    ServeStaticModule.forRoot({
+      rootPath: `${process.cwd()}/src/static`
+    }),
     UsersModule,
     BoardsModule,
     TasksModule,
-    AuthModule
+    AuthModule,
+    FileModule
   ],
 })
 export class AppModule { }

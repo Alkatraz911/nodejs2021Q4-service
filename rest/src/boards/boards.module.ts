@@ -6,15 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Board } from './board.model';
 import { TasksModule } from '../tasks/tasks.module';
 
-
 @Module({
   controllers: [BoardsController],
   providers: [BoardsService],
-  imports: [
-    TypeOrmModule.forFeature([Board]),
-    TasksModule,
-    AuthModule
-  ],
+  imports: [TypeOrmModule.forFeature([Board]), TasksModule, AuthModule],
   exports: [BoardsService],
 })
 export class BoardsModule {}

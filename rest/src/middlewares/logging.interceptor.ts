@@ -9,14 +9,9 @@ import { tap } from 'rxjs/operators';
 import * as fs from 'fs';
 import * as path from 'path';
 
-
-
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  intercept(
-    context: ExecutionContext,
-    next: CallHandler,
-  ): Observable<void>  {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<void> {
     const req = context.switchToHttp().getRequest();
     const res = context.switchToHttp().getResponse();
     const { method, url, body, query } = req;
@@ -26,16 +21,22 @@ export class LoggingInterceptor implements NestInterceptor {
       tap(() => {
         const finish = Date.now();
         const { statusCode } = res;
-        if(body.password) {
-          body.password = '******'
+        if (body.password) {
+          body.password = '******';
         }
-        const message = `[LOG] ${new Date()} method:${method} url:${url} body:${JSON.stringify(body)} query:${JSON.stringify(query)} code:${statusCode} [${
+        const message = `[LOG] ${new Date()} method:${method} url:${url} body:${JSON.stringify(
+          body,
+        )} query:${JSON.stringify(query)} code:${statusCode} [${
           finish - start
-        }ms]`;
+        }ms]\n`;
         console.log(`${message}\n`);
-         fs.appendFile(path.resolve(process.cwd(), 'src/logs/logs.txt'), message, (err) => {
-          if (err) console.log(err);
-        });
+        fs.appendFile(
+          path.resolve(process.cwd(), 'src/logs/logs.txt'),
+          message,
+          (err) => {
+            if (err) console.log(err);
+          },
+        );
       }),
     );
   }

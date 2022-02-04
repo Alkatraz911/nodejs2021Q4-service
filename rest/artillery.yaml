@@ -1,0 +1,47 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    # - duration: 60
+    #   arrivalRate: 5
+    #   name: Warm up
+    - duration: 10
+      arrivalRate: 5
+      name: Test
+    #   rampTo: 50
+    #   name: Ramp up load
+    # - duration: 60
+    #   arrivalRate: 50
+    #   name: Sustained load
+
+scenarios:
+  - name: "Test users route"
+    flow:
+      - post:
+          url: "/users"
+          json:
+              login: "User"
+              password: "User"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4MzVhYzJmLTJhMzItNDNmYy04ODdkLWVlYTBiMmYzYWU4NSIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2NDM5NjAzNzcsImV4cCI6MTY0Mzk2Mzk3N30.NLaaBMoQ_O7uMf6mIeZ4XNgnpGm15DxCh9gVWhXjTtM"
+      - get:
+          url: "/users"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4MzVhYzJmLTJhMzItNDNmYy04ODdkLWVlYTBiMmYzYWU4NSIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2NDM5NjAzNzcsImV4cCI6MTY0Mzk2Mzk3N30.NLaaBMoQ_O7uMf6mIeZ4XNgnpGm15DxCh9gVWhXjTtM"
+            capture:
+            - json: "$.results[results.length - 1].id"
+              as: "userId"
+      - get:
+          url: "/users/{{userId}}"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4MzVhYzJmLTJhMzItNDNmYy04ODdkLWVlYTBiMmYzYWU4NSIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2NDM5NjAzNzcsImV4cCI6MTY0Mzk2Mzk3N30.NLaaBMoQ_O7uMf6mIeZ4XNgnpGm15DxCh9gVWhXjTtM"
+      - put:
+          url: "/users/{{userId}}"
+          json:
+              name: "Albert"
+              login: "UserAlbert"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4MzVhYzJmLTJhMzItNDNmYy04ODdkLWVlYTBiMmYzYWU4NSIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2NDM5NjAzNzcsImV4cCI6MTY0Mzk2Mzk3N30.NLaaBMoQ_O7uMf6mIeZ4XNgnpGm15DxCh9gVWhXjTtM"
+      - delete:
+          url: "/users/{{userId}}"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE4MzVhYzJmLTJhMzItNDNmYy04ODdkLWVlYTBiMmYzYWU4NSIsImxvZ2luIjoiYWRtaW4iLCJpYXQiOjE2NDM5NjAzNzcsImV4cCI6MTY0Mzk2Mzk3N30.NLaaBMoQ_O7uMf6mIeZ4XNgnpGm15DxCh9gVWhXjTtM"

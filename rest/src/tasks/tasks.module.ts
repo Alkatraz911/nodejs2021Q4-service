@@ -5,14 +5,10 @@ import { TasksService } from './tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task.model';
 
-
 @Module({
   controllers: [TasksController],
   providers: [TasksService],
-  imports: [
-    TypeOrmModule.forFeature([Task]),
-    AuthModule
-  ],
+  imports: [TypeOrmModule.forFeature([Task]), AuthModule],
   exports: [TasksService],
 })
 export class TasksModule {}

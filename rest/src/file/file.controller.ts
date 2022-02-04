@@ -3,10 +3,8 @@ import {
   Post,
   UploadedFile,
   UseGuards,
-  Body,
   StreamableFile,
   UseInterceptors,
-
   Get,
   Param,
 } from '@nestjs/common';
@@ -26,12 +24,12 @@ export class FileController {
   @UseInterceptors(FileInterceptor('file'))
   @Post()
   uploadFile(@UploadedFile() file) {
-     this.fileService.uploadFile(file);
+    this.fileService.uploadFile(file);
   }
 
   @Get(':filename')
   async downloadFile(
-    @Param('filename') filename: string
+    @Param('filename') filename: string,
   ): Promise<StreamableFile> {
     const stream = await this.fileService.downloadFile(filename);
     return new StreamableFile(stream);

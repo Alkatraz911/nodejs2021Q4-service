@@ -6,21 +6,14 @@ import { User } from './user.model';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from '../tasks/tasks.module';
 
-
-
-
 @Module({
   controllers: [UsersController],
-  providers:[UsersService],
+  providers: [UsersService],
   imports: [
-    TypeOrmModule.forFeature([User]), 
+    TypeOrmModule.forFeature([User]),
     TasksModule,
-    forwardRef(()=> AuthModule)
+    forwardRef(() => AuthModule),
   ],
-  exports: [
-    UsersService
-  ],
+  exports: [UsersService],
 })
-
-export class UsersModule {  
-}
+export class UsersModule {}

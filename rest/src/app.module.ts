@@ -6,10 +6,18 @@ import { BoardsModule } from './boards/boards.module';
 import { TasksModule } from './tasks/tasks.module';
 import { AuthModule } from './auth/auth.module';
 import { FileModule } from './file/file.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './middlewares/logging.interceptor';
 // import { ServeStaticModule } from '@nestjs/serve-static'
 
 
 @Module({
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env'

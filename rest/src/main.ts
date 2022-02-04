@@ -6,7 +6,8 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { HttpExceptionFilter } from './helpers/exeptionFilter'
+import { HttpExceptionFilter } from './helpers/exeptionFilter';
+
 
 
 async function bootstrap() {
@@ -30,8 +31,11 @@ async function bootstrap() {
     .build()
   const document = SwaggerModule.createDocument(app, config)  
   SwaggerModule.setup('/doc', app, document)
+
+
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new HttpExceptionFilter)
+  app.useGlobalFilters(new HttpExceptionFilter);
+  
   await app.listen(process.env.PORT, '0.0.0.0', ()=>{
     console.log(`App is running at ${process.env.PORT} port. App mode ${mode}`)
   });

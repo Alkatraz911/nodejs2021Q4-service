@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { FileModule } from './file/file.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './middlewares/logging.interceptor';
-import  ormConfig  from './common/ormconfig';
+import ormConfig from './common/ormconfig';
 // import { ServeStaticModule } from '@nestjs/serve-static'
 
 @Module({

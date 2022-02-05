@@ -2,9 +2,8 @@ import { ConnectionOptions } from 'typeorm';
 import { User } from '../users/user.model';
 import { Board } from '../boards/board.model';
 import { Task } from '../tasks/task.model';
-import  config  from './config';
+import config from './config';
 import * as path from 'path';
-
 
 const ormConfig: ConnectionOptions = {
   type: 'postgres',
@@ -19,7 +18,7 @@ const ormConfig: ConnectionOptions = {
   migrations: [path.join(__dirname, '/../../migrations') + '/*.ts'],
   cli: {
     migrationsDir: path.join(__dirname, '/../../migrations'),
-}
-}
+  },
+};
 
-export default ormConfig
+export default ormConfig;

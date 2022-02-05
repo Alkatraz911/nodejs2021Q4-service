@@ -19,7 +19,8 @@ Artilery Test
 
 EXPRESS  
 
-http.codes.401:  250      
+http.codes.401:  250  
+http.request_rate:  28/sec  
 http.requests:  250      
 http.response_time:                                                                       
   min:  1          
@@ -33,15 +34,14 @@ vusers.created:  50
 vusers.created_by_name.Test users route:  50       
 vusers.session_length:                                                                    
   min:  23.6      
-  max:  63.9
-  median:  29.1       
+  max:  63.9  
+  median:  29.1        
   p95:  51.9       
   p99:  53          
 
 FASTIFY 
 
- http.codes.401: 250   
- http.request_rate:  28/sec      
+ http.codes.401: 250         
  http.request_rate:  28/sec   
  http.requests:  250   
  http.response_time:   

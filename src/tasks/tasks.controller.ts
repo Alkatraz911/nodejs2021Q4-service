@@ -10,7 +10,7 @@ import {
   HttpStatus,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from './../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/createTaskDto';
 import { UpdateTaskDto } from './dto/updateTaskDto';

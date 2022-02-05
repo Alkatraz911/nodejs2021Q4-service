@@ -1,28 +1,22 @@
 {
-    "compilerOptions":
-      {
-        "target": "es2020",
-        "module": "commonjs",
-        "allowJs": false,
-        "outDir": "./build",
-        "rootDir": "./src",
-        "downlevelIteration": false,
-        "strict": true,
-        "noUnusedLocals": false,
-        "noUnusedParameters": false,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "noUncheckedIndexedAccess": true,
-        "noPropertyAccessFromIndexSignature": false,
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "strictPropertyInitialization": false
-      },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
-
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+  },
+  "exclude": ["./src/migrations"]
 }

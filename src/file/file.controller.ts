@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { FileService } from './file.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from './../auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('File')

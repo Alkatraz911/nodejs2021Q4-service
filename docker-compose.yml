@@ -18,12 +18,12 @@ services:
       POSTGRES_HOST: postgres
     restart: always 
   postgres:
-    build: ./src/db
+    build: ./src/database
     container_name: database
     networks:
       - myNet
     ports:
-      - ${POSTGRES_CONTAINERPORT}:${POSTGRES_CONTAINERPORT}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - pg_data:/var/lib/postgressql/data/pgdata    
     environment:

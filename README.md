@@ -1,72 +1,78 @@
-# RS School REST service
+Application starting
 
-## Prerequisites
+1.  Clone repo
+2. Switch nest branch
+3. run npm install
+4. run docker compose up
+5. open one more powershell and run tests (npm run test:auth)
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+default login - admin, password - admin. 
+App can be run in 2 modes: express and fastify. You can switch it at .env file USE_FASTIFY option. 
+Logs are stored at volumes - \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes
+To load file you need log in and then post form-data with key file to endpoint /file
+To get file you need to go to any browser and load url localhost:3000/file/name_of_file
 
-## Downloading
+BaltazaVR  Alkatraz911#8711 - For questions. 
 
-```
-git clone {repository URL}
-```
 
-## Installing NPM modules
+Artilery Test 
 
-```
-npm install
-```
+EXPRESS  
 
-## Running application
+http.codes.401:  250  
+http.request_rate:  28/sec  
+http.requests:  250      
+http.response_time:                                                                       
+  min:  1          
+  max:  17         
+  median:  4          
+  p95:  10.1       
+  p99:  13.1       
+http.responses:  250      
+vusers.completed:  50       
+vusers.created:  50       
+vusers.created_by_name.Test users route:  50       
+vusers.session_length:                                                                    
+  min:  23.6      
+  max:  63.9  
+  median:  29.1        
+  p95:  51.9       
+  p99:  53          
 
-```
-npm start
-```
+FASTIFY 
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+ http.codes.401: 250         
+ http.request_rate:  28/sec   
+ http.requests:  250   
+ http.response_time:   
+  min:  2   
+  max:  25   
+  median:  3   
+  p95:  7   
+  p99:  10.9   
+ http.responses: 250   
+ vusers.completed:  50   
+ vusers.created:  50   
+ vusers.created_by_name.Test users route:  50   
+ vusers.session_length:   
+  min:  21   
+  max:  86.3   
+  median:  33.5          
+  p95:  51.9   
+  p99:  79.1   
 
-## Testing
+  
+  
+  
+  
+  
 
-After application running open new terminal and enter:
 
-To run all tests without authorization
 
-```
-npm test
-```
 
-To run only one of all test suites (users, boards or tasks)
 
-```
-npm test <suite name>
-```
-
-To run all test with authorization
-
-```
-npm run test:auth
-```
-
-To run only specific test suite with authorization (users, boards or tasks)
-
-```
-npm run test:auth <suite name>
-```
-
-## Development
-
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
-
-### Auto-fix and format
-
-```
-npm run lint
-```
-
-### Debugging in VSCode
-
-Press <kbd>F5</kbd> to debug.
-
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+  
+  
+  
+  
+  

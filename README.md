@@ -10,7 +10,7 @@ default login - admin, password - admin.
 App can be run in 2 modes: express and fastify. You can switch it at .env file USE_FASTIFY option. 
 Logs are stored at volumes - \\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes
 To load file you need log in and then post form-data with key file to endpoint /file
-To get file you need to go to any browther and load url localgost:3000/file/name_of_file
+To get file you need to go to any browser and load url localhost:3000/file/name_of_file
 
 BaltazaVR  Alkatraz911#8711 - For questions. 
 
